@@ -214,6 +214,8 @@ var stepF = 2;
 
 var stepB = bCount;
 
+var focusOn = {f: stepF, b: stepB};
+
 
 //diamond width and height
 
@@ -295,10 +297,12 @@ status: 0
 
 
 
+//removed not support by IE if not http
+//images.sofa.f = parseInt(localStorage.getItem('sofaf')) || 1;
+images.sofa.f = 1;
+//images.sofa.b = parseInt(localStorage.getItem('sofab')) ||6;
+images.sofa.b =6;
 
-images.sofa.f = parseInt(localStorage.getItem('sofaf')) || 1;
-
-images.sofa.b = parseInt(localStorage.getItem('sofab')) ||6;
 
 images.sofa.maxrotate = 2;
 
@@ -362,17 +366,17 @@ images.easel.othercoords = {f: 0, b: 0};
 
 
 
-localStorage.setItem('sofaf',images.sofa.f);
+//localStorage.setItem('sofaf',images.sofa.f);
 
-localStorage.setItem('sofab',images.sofa.b);
+//localStorage.setItem('sofab',images.sofa.b);
 
-localStorage.setItem('lampf',images.lamp.f);
+//localStorage.setItem('lampf',images.lamp.f);
 
-localStorage.setItem('lampb',images.lamp.b);
+//localStorage.setItem('lampb',images.lamp.b);
 
-localStorage.setItem('eaself',images.easel.f);
+//localStorage.setItem('eaself',images.easel.f);
 
-localStorage.setItem('easelb',images.easel.b);
+//localStorage.setItem('easelb',images.easel.b);
 
 
 function updateStorage(){
@@ -907,8 +911,8 @@ ctx.fillText("Rotate",diamond[fCount][1].x +4.5*dWidth + 35, diamond[fCount][1].
 
 
 
-
-var focusOn = {f: stepF, b: stepB};
+//moved up in global variables
+//var focusOn = {f: stepF, b: stepB};
 
 
 
