@@ -1,0 +1,1167 @@
+<!doctype html>
+
+<html>
+
+
+
+<head>
+
+
+
+<title>Art</title>
+
+
+
+
+<link rel="stylesheet" href="style.css" />
+
+</head>
+
+
+
+<body>
+
+
+
+
+<canvas id = "myCanvas"></canvas>
+
+<div id = "base">
+
+
+
+<img id = "but" src ="img/soundoff.png">
+
+<!--
+
+<form>
+
+<input type="text" class = "message">
+
+</form>
+
+-->
+
+</div>
+
+
+
+
+
+<p id = "ppp"></p>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+//loading images
+
+
+var images = {};
+
+
+function loadImages(sources) {
+
+var loadedImages = 0;
+
+var numImages = 0;
+
+for(var src in sources) {
+
+numImages++;
+
+}
+
+for(var src in sources) {
+
+images[src] = new Image();
+
+images[src].onload = function() {
+
+if(++loadedImages >= numImages) {
+
+drawStuff();
+
+}
+
+};
+
+images[src].src = sources[src];
+
+}
+
+}
+
+
+//image sources
+
+var sources = {
+
+sofa: "img/sofa.png",
+
+flooring: "img/floor.png",
+
+wallOne: "img/wallleft.png",
+
+wallTwo: "img/wallright.png",
+
+windowleft: "img/window.png",
+
+door: "img/door.png",
+
+lamp: "img/lamp.png",
+
+grain: "img/grain.png",
+
+stageEmpty: "img/emptystage.png",
+
+focusSquare: "img/focus.png",
+
+easel: "img/easel.png",
+
+car: "img/car.png",
+
+boy: "img/People/Little_Boy_Pink.png",
+
+boyL: "img/People/Little_Boy_Pink_Left.png",
+
+boyBL: "img/People/Little_Boy_Pink_bleft.png",
+
+boyBR: "img/People/Little_Boy_Pink_bright.png"
+
+}
+
+
+
+loadImages(sources);
+
+
+
+
+
+//music on off button
+
+
+var button = document.querySelector('#but');
+
+var audio = new Audio('Arcade Funk.mp3');
+
+
+button.onclick = function(){
+
+
+if(button.src.includes("soundoff") == true){
+
+button.src = "img/soundon.png";
+
+audio.play();
+
+}else{
+
+button.src = "img/soundoff.png";
+
+audio.pause();
+
+}
+
+}
+
+
+
+//global variables
+
+var base = document.querySelector('#base');
+
+
+var canvas = document.querySelector('#myCanvas');
+
+var p = document.querySelector('#ppp');
+
+
+ctx = canvas.getContext("2d");
+
+
+var canvasLeft = canvas.offsetLeft;
+
+var canvasTop = canvas.offsetTop;
+
+
+
+
+canvas.style.background = "#202020";
+
+
+//room dimensions
+
+var fCount = 6;
+
+var bCount = 10;
+
+
+//boy loctation
+
+var stepF = 2;
+
+var stepB = bCount;
+
+
+//diamond width and height
+
+var dWidth = 90;
+
+var dHeight = 45;
+
+
+
+var wallHeight = 135;
+
+var floorDepth = 10;
+
+
+
+canvas.width = 900;
+
+canvas.height = 600;
+
+
+
+//initial boy orientation
+
+var boyPos = 2;
+
+
+
+base.style.width = canvas.width + "px";
+
+base.style.height = "70px";
+
+base.style.background = "#202020";
+
+
+
+//location of f1b1
+
+var x = 100;
+
+var y = 420;
+
+
+
+
+
+
+
+var diamond =[];
+
+
+
+for (f = 1; f<= fCount; f++){
+
+diamond[f] = [];
+
+for (b = 1; b<= bCount; b++){
+
+
+
+diamond[f][b] = {
+
+x: x + (b-1)*dWidth/2 + (f-1)*dWidth/2,
+
+y: y - (b-1)*dHeight/2 + (f-1)*dHeight/2,
+
+status: 0
+
+};
+
+
+
+
+
+}
+
+
+
+}
+
+
+
+
+images.sofa.f = parseInt(localStorage.getItem('sofaf')) || 1;
+
+images.sofa.b = parseInt(localStorage.getItem('sofab')) ||6;
+
+images.sofa.maxrotate = 2;
+
+images.sofa.rotate = 1;
+
+images.sofa.flength = 1;
+
+images.sofa.blength = 2;
+
+images.sofa.othercoords = {f: 1, b: 7};
+
+
+images.car.f = 6;
+
+images.car.b = 1;
+
+images.car.maxrotate = 1;
+
+images.car.rotate = 1;
+
+images.car.flength = 3;
+
+images.car.blength = 4;
+
+images.car.othercoords = {f: 0, b: 0};
+
+
+
+
+
+images.lamp.f = 1;
+
+images.lamp.b = 1;
+
+images.lamp.maxrotate = 1;
+
+images.lamp.rotate = 1;
+
+images.lamp.flength = 1;
+
+images.lamp.blength = 1;
+
+images.lamp.othercoords = {f: 0, b: 0};
+
+
+images.easel.f = 1;
+
+images.easel.b = 2;
+
+images.easel.maxrotate = 2;
+
+images.easel.rotate = 1;
+
+images.easel.flength = 1;
+
+images.easel.blength = 1;
+
+images.easel.othercoords = {f: 0, b: 0};
+
+
+
+
+
+localStorage.setItem('sofaf',images.sofa.f);
+
+localStorage.setItem('sofab',images.sofa.b);
+
+localStorage.setItem('lampf',images.lamp.f);
+
+localStorage.setItem('lampb',images.lamp.b);
+
+localStorage.setItem('eaself',images.easel.f);
+
+localStorage.setItem('easelb',images.easel.b);
+
+
+function updateStorage(){
+
+
+localStorage.sofaf = images.sofa.f;
+
+localStorage.sofab = images.sofa.b;
+
+localStorage.lampf = images.lamp.f;
+
+localStorage.lampb = images.lamp.b;
+
+localStorage.eaself = images.easel.f;
+
+localStorage.easelb = images.easel.b;
+
+}
+
+
+
+function drawDiamonds(){
+
+
+
+for (f = 1; f<= fCount; f++){
+
+for (b = 1; b<= bCount; b++){
+
+
+ctx.drawImage(images.flooring,0,0,images.flooring.width, images.flooring.height, diamond[f][b].x, diamond[f][b].y - dHeight/2, dWidth, dHeight);
+
+
+
+}
+
+}
+
+
+}
+
+
+
+
+function drawWallOne() {
+
+
+ctx.drawImage(images.wallOne,0,0,images.wallOne.width, images.wallOne.height, x, y - wallHeight - (bCount/2) * dHeight, bCount/2 * dWidth, bCount/2 * dHeight + wallHeight);
+
+
+
+}
+
+
+
+
+function drawWallTwo() {
+
+
+
+ctx.drawImage(images.wallTwo,0,0,images.wallTwo.width, images.wallTwo.height, diamond[1][bCount].x + dWidth/2, diamond[1][bCount].y - dHeight/2 - wallHeight, fCount/2 * dWidth, fCount/2 * dHeight + wallHeight);
+
+
+
+}
+
+
+
+function drawWindow() {
+
+
+ctx.drawImage(images.windowleft,0,0,images.windowleft.width, images.windowleft.height, diamond[1][3].x, diamond[1][3].y - wallHeight - dHeight/2, 1.5 * dWidth, 1.5 * dWidth);
+
+
+
+}
+
+
+
+
+
+function drawDoor() {
+
+
+ctx.drawImage(images.door,0,0,images.door.width, images.door.height, diamond[1][bCount].x + dWidth, diamond[1][bCount].y + dHeight/2 - (dWidth/2)*images.door.height/images.door.width, dWidth/2, (dWidth/2)*images.door.height/images.door.width);
+
+
+}
+
+
+
+function drawFloorLeft() {
+
+
+ctx.beginPath();
+
+ctx.moveTo(diamond[1][1].x,diamond[1][1].y);
+
+ctx.lineTo(diamond[fCount][1].x + dWidth/2,diamond[fCount][1].y + dHeight/2);
+
+ctx.lineTo(diamond[fCount][1].x + dWidth/2,diamond[fCount][1].y + dHeight/2 + floorDepth);
+
+ctx.lineTo(diamond[1][1].x,diamond[1][1].y + floorDepth);
+
+ctx.fillStyle = "black";
+
+ctx.fill();
+
+
+
+}
+
+
+
+function drawFloorRight() {
+
+
+
+ctx.beginPath();
+
+ctx.moveTo(diamond[fCount][1].x + dWidth/2,diamond[fCount][1].y + dHeight/2);
+
+ctx.lineTo(diamond[fCount][bCount].x + dWidth,diamond[fCount][bCount].y);
+
+ctx.lineTo(diamond[fCount][bCount].x + dWidth,diamond[fCount][bCount].y + floorDepth);
+
+ctx.lineTo(diamond[fCount][1].x + dWidth/2,diamond[fCount][1].y + dHeight/2 + floorDepth);
+
+ctx.fillStyle = "black";
+
+ctx.fill();
+
+
+
+}
+
+
+//hmmmmm
+
+var moveFurni = false;
+
+
+
+
+var lampOn = false;
+
+
+function drawlamp(){
+
+if (moveFurni == true && obFocus =='lamp'){
+
+ctx.globalAlpha = 0.5;
+
+}
+
+if (lampOn == true){
+
+ctx.drawImage(images.lamp,0,0,images.lamp.width/2, images.lamp.height, diamond[images.lamp.f][images.lamp.b].x - 25, diamond[images.lamp.f][images.lamp.b].y - images.lamp.height + dHeight/2 + 3, images.lamp.width/2, images.lamp.height);
+
+}else{
+
+ctx.drawImage(images.lamp,images.lamp.width/2,0,images.lamp.width/2, images.lamp.height, diamond[images.lamp.f][images.lamp.b].x - 26, diamond[images.lamp.f][images.lamp.b].y - images.lamp.height + dHeight/2 + 3, images.lamp.width/2, images.lamp.height);
+
+}
+
+if (moveFurni == true && obFocus =='lamp'){
+
+ctx.globalAlpha = 1;
+
+}
+
+
+//NEED TO THINK ABOUT THIS
+
+if (moveFurni == true && obFocus =='lamp'){
+
+}else{
+
+diamond[images.lamp.f][images.lamp.b].status = 1;
+
+}
+
+}
+
+
+
+
+
+
+function drawcar() {
+
+if (moveFurni == true && obFocus =='car'){
+
+ctx.globalAlpha = 0.5;
+
+}
+
+if (images.car.rotate == 1){
+
+ctx.drawImage(images.car,0,0,images.car.width, images.car.height, diamond[images.car.f][images.car.b].x - dWidth + 8, diamond[images.car.f][images.car.b].y - dHeight* 4, images.car.width, images.car.height);
+
+if (moveFurni == true && obFocus =='car'){
+
+}else{
+
+if (typeof diamond[images.car.f][images.car.b + 1] != 'undefined'){
+
+diamond[images.car.f][images.car.b].status = 1;
+
+diamond[images.car.f][images.car.b + 1].status = 1;
+
+diamond[images.car.f][images.car.b + 2].status = 1;
+
+diamond[images.car.f][images.car.b + 3].status = 1;
+
+diamond[images.car.f - 1][images.car.b].status = 1;
+
+diamond[images.car.f - 1][images.car.b + 1].status = 1;
+
+diamond[images.car.f - 1][images.car.b + 2].status = 1;
+
+diamond[images.car.f - 1][images.car.b + 3].status = 1;
+
+diamond[images.car.f - 2][images.car.b].status = 1;
+
+diamond[images.car.f - 2][images.car.b + 1].status = 1;
+
+diamond[images.car.f - 2][images.car.b + 2].status = 1;
+
+diamond[images.car.f - 2][images.car.b + 3].status = 1;
+
+}else{
+
+moveFurni = true;
+
+obFocus ='car';
+
+}
+
+}
+
+//images.sofa.othercoords.f = images.sofa.f;
+
+//images.sofa.othercoords.b = images.sofa.b + 1;
+
+
+
+//images.sofa.flength = 1;
+
+//images.sofa.blength = 2;
+
+
+}
+
+
+
+if (moveFurni == true && obFocus =='car'){
+
+ctx.globalAlpha = 1;
+
+}
+
+
+}
+
+
+
+
+
+
+
+function draweasel(){
+
+if (moveFurni == true && obFocus =='easel'){
+
+ctx.globalAlpha = 0.5;
+
+}
+
+if (images.easel.rotate == 1){
+
+ctx.drawImage(images.easel,0,0,images.easel.width/2, images.easel.height, diamond[images.easel.f][images.easel.b].x + 21, diamond[images.easel.f][images.easel.b].y - images.easel.height + 22, images.easel.width/2, images.easel.height);
+
+
+}
+
+else if (images.easel.rotate == 2){
+
+ctx.drawImage(images.easel,images.easel.width/2,0,images.easel.width/2, images.easel.height, diamond[images.easel.f][images.easel.b].x+ 3, diamond[images.easel.f][images.easel.b].y - images.easel.height + 22, images.easel.width/2, images.easel.height);
+
+
+}
+
+if (moveFurni == true && obFocus =='easel'){
+
+ctx.globalAlpha = 1;
+
+}
+
+
+//NEED TO THINK ABOUT THIS
+
+if (moveFurni == true && obFocus =='easel'){
+
+}else{
+
+diamond[images.easel.f][images.easel.b].status = 1;
+
+}
+
+}
+
+
+
+
+
+function drawsofa() {
+
+if (moveFurni == true && obFocus =='sofa'){
+
+ctx.globalAlpha = 0.5;
+
+}
+
+if (images.sofa.rotate == 1){
+
+ctx.drawImage(images.sofa,0,0,images.sofa.width/2, images.sofa.height, diamond[images.sofa.f][images.sofa.b].x, diamond[images.sofa.f][images.sofa.b].y - dHeight* 2, dWidth*1.5, images.sofa.height+2.5);
+
+if (moveFurni == true && obFocus =='sofa'){
+
+}else{
+
+if (typeof diamond[images.sofa.f][images.sofa.b + 1] != 'undefined'){
+
+diamond[images.sofa.f][images.sofa.b].status = 1;
+
+diamond[images.sofa.f][images.sofa.b + 1].status = 1;
+
+}else{
+
+moveFurni = true;
+
+obFocus ='sofa';
+
+}
+
+}
+
+images.sofa.othercoords.f = images.sofa.f;
+
+images.sofa.othercoords.b = images.sofa.b + 1;
+
+
+
+images.sofa.flength = 1;
+
+images.sofa.blength = 2;
+
+
+}else if ( images.sofa.rotate == 2){
+
+ctx.drawImage(images.sofa,images.sofa.width/2,0,images.sofa.width/2, images.sofa.height, diamond[images.sofa.f][images.sofa.b].x - dWidth/2, diamond[images.sofa.f][images.sofa.b].y - dHeight* 1.5 - dHeight/2, dWidth*1.5, images.sofa.height+2.5);
+
+if (moveFurni == true && obFocus =='sofa'){
+
+}else{
+
+if (typeof diamond[images.sofa.f - 1] != 'undefined'){
+
+diamond[images.sofa.f][images.sofa.b].status = 1;
+
+diamond[images.sofa.f - 1][images.sofa.b].status = 1;
+
+}else{
+
+moveFurni = true;
+
+obFocus ='sofa';
+
+}
+
+}
+
+images.sofa.othercoords.f = images.sofa.f - 1;
+
+images.sofa.othercoords.b = images.sofa.b;
+
+images.sofa.flength = 2;
+
+images.sofa.blength = 1;
+
+}
+
+
+
+
+if (moveFurni == true && obFocus =='sofa'){
+
+ctx.globalAlpha = 1;
+
+}
+
+
+}
+
+
+
+
+var stepX = dWidth/2;
+
+var stepY = dHeight/2;
+
+
+
+
+function drawBoy(){
+
+
+if (boyPos == 1){
+
+ctx.drawImage(images.boy,x - 103 + ((stepF+stepB)* stepX),y - 112 - ((stepB-stepF)* stepY),120,120);
+
+}
+
+else if(boyPos == 2){
+
+ctx.drawImage(images.boyL,x - 103 + ((stepF+stepB)* stepX),y - 112 - ((stepB-stepF)* stepY),120,120);
+
+}
+
+else if(boyPos == 3){
+
+ctx.drawImage(images.boyBL,x - 103 + ((stepF+stepB)* stepX),y - 112 - ((stepB-stepF)* stepY),120,120);
+
+}
+
+else if(boyPos == 4){
+
+ctx.drawImage(images.boyBR,x - 103 + ((stepF+stepB)* stepX),y - 112 - ((stepB-stepF)* stepY),120,120);
+
+}
+
+
+
+}
+
+
+
+function drawGrain(){
+
+ctx.drawImage(images.grain, 0, 0, canvas.width,canvas.height);
+
+
+}
+
+
+
+
+var obFocus = 'null';
+
+
+function drawStage(){
+
+ctx.drawImage(images.stageEmpty,0,0,images.stageEmpty.width, images.stageEmpty.height, diamond[fCount][1].x +4.5*dWidth, diamond[fCount][1].y - 3*dHeight, images.stageEmpty.width*3/4, images.stageEmpty.height*3/4);
+
+
+if(obFocus== 'lamp'){
+
+ctx.drawImage(images.lamp,images.lamp.width/2,0,images.lamp.width/2, images.lamp.height, diamond[fCount][1].x +4.5*dWidth + 12, diamond[fCount][1].y - 4*dHeight + 45, images.lamp.width/2*3/4, images.lamp.height*3/4);
+
+
+ctx.font="12px Georgia";
+
+ctx.fillStyle = 'white';
+
+ctx.fillText("Move",diamond[fCount][1].x +4.5*dWidth, diamond[fCount][1].y + 0.5*dHeight);
+
+//ctx.drawImage(images.boyL,0,0,images.boyL.width, images.boyL.height, diamond[fCount][1].x +4.5*dWidth + 5, diamond[fCount][1].y - 3*dHeight + 15, images.boyL.width/9, images.boyL.height/9);
+
+}else if (obFocus== 'sofa'){
+
+ctx.drawImage(images.sofa,0,0,images.sofa.width/2, images.sofa.height, diamond[fCount][1].x +4.5*dWidth + 18, diamond[fCount][1].y - 3*dHeight + 50, dWidth*1.5*3/4, (images.sofa.height+2.5)*3/4);
+
+ctx.font="12px Georgia";
+
+ctx.fillStyle = 'white';
+
+ctx.fillText("Move",diamond[fCount][1].x +4.5*dWidth, diamond[fCount][1].y + 0.5*dHeight);
+
+
+ctx.fillText("Rotate",diamond[fCount][1].x +4.5*dWidth + 35, diamond[fCount][1].y + 0.5*dHeight);
+
+
+}else if (obFocus== 'easel'){
+
+ctx.drawImage(images.easel,0,0,images.easel.width/2, images.easel.height, diamond[fCount][1].x +4.5*dWidth + 39, diamond[fCount][1].y - 3*dHeight + 30, images.easel.width/2*3/4, images.easel.height*3/4);
+
+
+
+ctx.font="12px Georgia";
+
+ctx.fillStyle = 'white';
+
+ctx.fillText("Move",diamond[fCount][1].x +4.5*dWidth, diamond[fCount][1].y + 0.5*dHeight);
+
+
+ctx.fillText("Rotate",diamond[fCount][1].x +4.5*dWidth + 35, diamond[fCount][1].y + 0.5*dHeight);
+
+
+
+}else if (obFocus== 'car'){
+
+ctx.drawImage(images.car,0,0,images.car.width, images.car.height, diamond[fCount][1].x +4.5*dWidth + 18, diamond[fCount][1].y - 3*dHeight + 60, images.car.width/3, images.car.height/3);
+
+
+ctx.font="12px Georgia";
+
+ctx.fillStyle = 'white';
+
+ctx.fillText("Move",diamond[fCount][1].x +4.5*dWidth, diamond[fCount][1].y + 0.5*dHeight);
+
+
+ctx.fillText("Rotate",diamond[fCount][1].x +4.5*dWidth + 35, diamond[fCount][1].y + 0.5*dHeight);
+
+}
+
+
+
+
+
+}
+
+
+
+
+var focusOn = {f: stepF, b: stepB};
+
+
+
+function drawFocus(){
+
+ctx.drawImage(images.focusSquare,diamond[focusOn.f][focusOn.b].x,diamond[focusOn.f][focusOn.b].y - dHeight/2,images.focusSquare.width,images.focusSquare.height);
+
+}
+
+
+
+
+function clearStatus(){
+
+for (f = 1; f<= fCount; f++){
+
+for (b = 1; b<= bCount; b++){
+
+diamond[f][b].status = 0;
+
+}
+
+}
+
+}
+
+
+
+
+
+
+
+drawStuff();
+
+setInterval(drawStuff,1000/10);
+
+
+
+var walk = false;
+
+var walkTick = 0;
+
+
+
+
+function drawStuff(){
+
+//clear canvas and images properties
+
+canvas.width = canvas.width;
+
+for(var img in images) {
+
+images[img].drawn = false;
+
+}
+
+
+clearStatus();
+
+drawDiamonds();
+
+drawWallOne();
+
+drawWallTwo();
+
+drawWindow();
+
+drawDoor();
+
+drawFloorLeft();
+
+drawFloorRight();
+
+drawFocus();
+
+
+
+
+   for( var k = 0 ; k < Math.max(bCount,fCount) * 2 ; k++ ) {
+
+       for( var j = 0 ; j <= k ; j++ ) {
+
+           var i = k - j;
+
+           if( i < Math.max(bCount,fCount) && j < Math.max(bCount,fCount) ) {
+
+var f = j + 1;
+
+var b = bCount - i;
+
+if (stepF <= f + 0.5 && stepF >= f - 0.5 && stepB <= b + 0.5 && stepB >= b - 0.5) {
+
+drawBoy();
+
+}
+
+
+for(var img in images) {
+
+if(images[img].drawn == false){
+
+//what a mess!! trying to solve drawing order
+
+if (images[img].f == f && images[img].b == b) {
+
+window["draw" + img]();
+
+images[img].drawn = true;
+
+}else if (typeof images[img].othercoords != 'undefined'){
+
+if(images[img].othercoords.f == f && images[img].othercoords.b == b){
+
+window["draw" + img]();
+
+images[img].drawn = true;
+
+}
+
+}
+
+}
+
+}
+
+
+
+           }
+
+       }
+
+   }
+
+
+
+
+drawStage();
+
+drawGrain();
+
+
+
+
+if(walk === true){
+
+
+if(walkTick === currentPath.length -1){
+
+  walk = false;
+
+  walkTick = 0;
+
+  }else if(stepB % 1 != 0 || stepF % 1 != 0){
+
+walkTick += 1;
+
+stepB = currentPath[walkTick][0];
+
+stepF = currentPath[walkTick][1];
+
+  }else{
+
+if(typeof currentPath != 'undefined' && typeof currentPath[walkTick+1] != 'undefined'){
+
+findboyPos();
+
+stepB = stepB - (stepB - currentPath[walkTick+1][0])/2;
+
+stepF = stepF - (stepF - currentPath[walkTick+1][1])/2;
+
+}
+
+}
+
+
+}
+
+
+
+p.innerHTML = stepB + ', ' + stepF;
+
+
+}
+
+
+function findboyPos(){
+
+if((stepB - currentPath[walkTick+1][0])/2 > 0){
+
+boyPos = 2;
+
+}
+
+else if((stepB - currentPath[walkTick+1][0])/2 < 0){
+
+boyPos = 4;
+
+}
+
+else if((stepF - currentPath[walkTick+1][1])/2 > 0){
+
+boyPos = 3;
+
+}
+
+else if((stepF - currentPath[walkTick+1][1])/2 < 0){
+
+boyPos = 1;
+
+}
+
+}
+
+
+
+
+
+
+</script>
+
+
+
+<script src="main.js"></script>
+
+
+
+
+</body>
+
+
+
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
