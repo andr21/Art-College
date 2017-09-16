@@ -34,8 +34,8 @@ var sources = {
 
 sofa: "old/img/sofa.png",
 flooring: "old/img/floor.png",
-LeftWall: "old/img/wallleft.png",
-RightWall: "old/img/wallright.png",
+LeftWall0: "old/img/wallleft.png",
+RightWall0: "old/img/wallright.png",
 windowleft: "old/img/window.png",
 door: "old/img/door.png",
 lamp: "old/img/lamp.png",
@@ -128,22 +128,46 @@ function drawsquares(){
 
 
 //walls
-function walls(LR, Style){
+function Wall(LR, style){
 
 this.side = LR;
-
+this.style = style;
+switch(this.side){
+case "L":
+switch(style) {
+    case 0:
+    this.image = images.LeftWall0
+        break;
+    case 1:
+        
+        break;    
+}
+break;
+case "R":
+switch(style) {
+    case 0:
+    this.image = images.RightWall0
+        break;
+    case 1:
+        
+        break;    
+}
+break;
+}
 
 this.draw = function(){
 
 switch(this.side) {
-    case L:
+    case "L":
+        
+        ctx.drawImage(this.image,0,0,this.image.width, this.image.height, hOffset, vOffset - wallHeight - (xCount+1)/2 * dHeight, (xCount+1)/2 * dWidth, (xCount+1)/2 * dHeight + wallHeight);
         
         break;
-    case R:
+    case "R":
         
-        break;
-    default:
+        ctx.drawImage(this.image,0,0,this.image.width, this.image.height, squares[xCount][yCount].h + dWidth/2, squares[xCount][yCount].v - dHeight/2 - wallHeight, (yCount+1)/2 * dWidth, (yCount+1)/2 * dHeight + wallHeight);
         
+        break;      
 }
 
 }
@@ -151,21 +175,21 @@ switch(this.side) {
 
 }
 
+var walls = [];
 
+function initialiseWalls(){
 
-
-function drawLeftWall() {
-
-//ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-
-ctx.drawImage(images.LeftWall,0,0,images.LeftWall.width, images.LeftWall.height, hOffset, vOffset - wallHeight - (xCount+1)/2 * dHeight, (xCount+1)/2 * dWidth, (xCount+1)/2 * dHeight + wallHeight);
+walls[0] = new Wall("L",0);
+walls[1] = new Wall("R",0);
 
 }
 
 
-function drawWallTwo() {
+function drawwalls(){
 
-ctx.drawImage(images.wallTwo,0,0,images.wallTwo.width, images.wallTwo.height, diamond[xCount][yCount].h + dWidth/2, diamond[xCount][yCount].v - dHeight/2 - wallHeight, yCount/2 * dWidth, yCount/2 * dHeight + wallHeight);
+	for (i = 0; i < walls.length; i++){
+		walls[i].draw();
+	}
 
 }
 
@@ -176,6 +200,8 @@ ctx.drawImage(images.wallTwo,0,0,images.wallTwo.width, images.wallTwo.height, di
 function initalise(){
 
 	initialiseSquares();
+	initialiseWalls();
+	
 	
 	draw();
 }
@@ -184,7 +210,8 @@ function initalise(){
 
 function draw(){
 
+drawwalls();
 drawsquares();
-drawLeftWall();
 
 }
+
