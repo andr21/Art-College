@@ -38,7 +38,7 @@ LeftWall0: "old/img/wallleft0.png",
 RightWall0: "old/img/wallright0.png",
 LeftWall1: "old/img/wallleft1.png",
 RightWall1: "old/img/wallright1.png",
-windowleft: "old/img/window.png",
+window: "old/img/window.png",
 door: "old/img/door.png",
 lamp: "old/img/lamp.png",
 grain: "old/img/grain.png",
@@ -199,6 +199,22 @@ function drawwalls(){
 
 
 
+//draw window
+function drawwindow() {
+
+//ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+ctx.drawImage(images.window,0,0,images.window.width, images.window.height, squares[2][yCount].h, squares[2][yCount].v - wallHeight - dHeight/2, 1.5 * dWidth, 1.5 * dWidth);
+
+}
+
+function drawdoor() {
+
+ctx.drawImage(images.door,0,0,images.door.width, images.door.height, squares[xCount][yCount].h + dWidth, squares[xCount][yCount].v + dHeight/2 - (dWidth/2)*images.door.height/images.door.width, dWidth/2, (dWidth/2)*images.door.height/images.door.width);
+
+}
+
+
+
 function initalise(){
 
 	initialiseSquares();
@@ -214,6 +230,8 @@ function draw(){
 
 drawwalls();
 drawsquares();
+drawwindow();
+drawdoor();
 
 }
 
