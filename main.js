@@ -34,8 +34,10 @@ var sources = {
 
 sofa: "old/img/sofa.png",
 flooring: "old/img/floor.png",
-LeftWall0: "old/img/wallleft.png",
-RightWall0: "old/img/wallright.png",
+LeftWall0: "old/img/wallleft0.png",
+RightWall0: "old/img/wallright0.png",
+LeftWall1: "old/img/wallleft1.png",
+RightWall1: "old/img/wallright1.png",
 windowleft: "old/img/window.png",
 door: "old/img/door.png",
 lamp: "old/img/lamp.png",
@@ -139,7 +141,7 @@ switch(style) {
     this.image = images.LeftWall0
         break;
     case 1:
-        
+    this.image = images.LeftWall1
         break;    
 }
 break;
@@ -149,7 +151,7 @@ switch(style) {
     this.image = images.RightWall0
         break;
     case 1:
-        
+    this.image = images.RightWall1
         break;    
 }
 break;
