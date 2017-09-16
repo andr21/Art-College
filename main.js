@@ -16,6 +16,9 @@ canvas.style.background = "#202020";
 var dWidth = 90;
 var dHeight = 45;
 
+//wall and floor height
+var wallHeight = 135;
+
 //room dimensions
 var xCount = 9;
 var yCount = 5;
@@ -31,8 +34,8 @@ var sources = {
 
 sofa: "old/img/sofa.png",
 flooring: "old/img/floor.png",
-wallOne: "old/img/wallleft.png",
-wallTwo: "old/img/wallright.png",
+LeftWall: "old/img/wallleft.png",
+RightWall: "old/img/wallright.png",
 windowleft: "old/img/window.png",
 door: "old/img/door.png",
 lamp: "old/img/lamp.png",
@@ -94,7 +97,7 @@ function Square(x, y){
 	this.v = vOffset - x*dHeight/2 + (yCount - y)*dHeight/2
 
 	this.draw = function(){
-		//void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+		
 		ctx.drawImage(images.flooring,0,0,images.flooring.width, images.flooring.height, this.h, this.v - dHeight/2, dWidth, dHeight);
 	}
 
@@ -115,14 +118,56 @@ function initialiseSquares(){
 
 function drawsquares(){
 
-	for (x = 0; x<= xCount; x++){
-	for (y = 0; y<= yCount; y++){
+	for (x = xCount; x>= 0; x--){
+	for (y = yCount; y>= 0; y--){
 		squares[x][y].draw();
 	}
 	}
 
 }
 
+
+//walls
+function walls(LR, Style){
+
+this.side = LR;
+
+
+this.draw = function(){
+
+switch(this.side) {
+    case L:
+        
+        break;
+    case R:
+        
+        break;
+    default:
+        
+}
+
+}
+
+
+}
+
+
+
+
+function drawLeftWall() {
+
+//ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+ctx.drawImage(images.LeftWall,0,0,images.LeftWall.width, images.LeftWall.height, hOffset, vOffset - wallHeight - (xCount+1)/2 * dHeight, (xCount+1)/2 * dWidth, (xCount+1)/2 * dHeight + wallHeight);
+
+}
+
+
+function drawWallTwo() {
+
+ctx.drawImage(images.wallTwo,0,0,images.wallTwo.width, images.wallTwo.height, diamond[xCount][yCount].h + dWidth/2, diamond[xCount][yCount].v - dHeight/2 - wallHeight, yCount/2 * dWidth, yCount/2 * dHeight + wallHeight);
+
+}
 
 
 
@@ -131,6 +176,15 @@ function drawsquares(){
 function initalise(){
 
 	initialiseSquares();
+	
+	draw();
+}
 
-	drawsquares();
+
+
+function draw(){
+
+drawsquares();
+drawLeftWall();
+
 }
