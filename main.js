@@ -232,6 +232,7 @@ function initalise(){
 
 	initialiseSquares();
 	initialiseWalls();
+	initialiseEasels();
 	
 	
 	draw();
@@ -245,6 +246,7 @@ drawwalls();
 drawsquares();
 drawwindow();
 drawdoor();
+draweasels();
 
 }
 
@@ -252,7 +254,7 @@ drawdoor();
  
  
  
- 
+
  
  
 
