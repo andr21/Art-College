@@ -27,6 +27,19 @@ var yCount = 5;
 var hOffset = 100;
 var vOffset = 420;
 
+//trying out scaling/zooming in and out
+function scale(s){
+dWidth = 90;
+dHeight = 45;
+wallHeight = 135;
+
+dWidth = dWidth * s;
+dHeight = dHeight * s;
+wallHeight = wallHeight * s;
+
+}
+
+
 
 //image sources
 
