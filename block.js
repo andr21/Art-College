@@ -53,7 +53,7 @@ function Sofa(pos, size, orientation){
 var sofas = [];
 function initialiseSofas(){
 
-    sofas[0] = new Sofa({x:0,y:1,z:0}, {x:1,y:2,z:2}, 1);
+    sofas[0] = new Sofa({x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
 
 }
 
@@ -132,7 +132,7 @@ function Man(pos, size, orientation){
 
     this.draw = function(){
         //needs to be fixed
-    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h,squares[this.pos.x][this.pos.y].h,120,120);
+    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
 
     }
 }
@@ -140,7 +140,7 @@ function Man(pos, size, orientation){
 var mans = [];
 function initialiseMans(){
 
-    mans[0] = new Man({x:0,y:0,z:0}, {x:1,y:1,z:3}, 3);
+    mans[0] = new Man({x:9,y:4,z:0}, {x:1,y:1,z:3},2);
 
 }
 
