@@ -233,6 +233,7 @@ function initalise(){
 	initialiseSquares();
 	initialiseWalls();
 	initialiseEasels();
+	initialiseSofas();
 	
 	
 	draw();
@@ -247,6 +248,7 @@ drawsquares();
 drawwindow();
 drawdoor();
 draweasels();
+drawsofas();
 
 }
 

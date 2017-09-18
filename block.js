@@ -25,10 +25,55 @@ Block.prototype.getBounds = function() {
 
 
 
+function Sofa(pos, size, orientation){
+    Block.call(this, pos, size);
+    this.image = images.sofa;
+    this.orientation = orientation;
+    this.numorientations = 2;
+
+    this.draw = function(){
+        if (this.orientation == 0){
+        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        
+        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h, squares[this.pos.x][this.pos.y].v - dHeight* 2, dWidth*1.5, this.image.height+2.5);
+        
+
+        }
+        else if (this.orientation == 1){
+
+                  ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
+        
+        
+
+        }
+
+    }
+
+}
+
+var sofas = [];
+function initialiseSofas(){
+
+    sofas[0] = new Sofa({x:0,y:1,z:0}, {x:1,y:2,z:2}, 1);
+
+}
+
+function drawsofas(){
+
+    for (i = 0; i < easels.length; i++){
+        sofas[i].draw();
+    }
+
+}
+
+
+
+
 function Easel(pos, size, orientation){
     Block.call(this, pos, size);
     this.image = images.easel;
     this.orientation = orientation;
+    this.numorientations = 2;
 
     this.draw = function(){
         if (this.orientation == 0){
