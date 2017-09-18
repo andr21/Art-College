@@ -43,7 +43,6 @@ function Sofa(pos, size, orientation){
 
                   ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
         
-        
 
         }
 
@@ -105,3 +104,53 @@ function draweasels(){
     }
 
 }
+
+
+
+
+
+function Man(pos, size, orientation){
+    Block.call(this, pos, size);
+    this.orientation = orientation;
+    this.numorientations = 4;
+
+    switch(this.orientation){
+        case 0:
+            this.image = images.boyBR;
+            break;
+        case 1:
+            this.image = images.boyBL;
+            break;
+        case 2:
+            this.image = images.boyL;
+            break;
+        case 3:
+            this.image = images.boy;
+            break;
+    }
+
+
+    this.draw = function(){
+        //needs to be fixed
+    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h,squares[this.pos.x][this.pos.y].h,120,120);
+
+    }
+}
+
+var mans = [];
+function initialiseMans(){
+
+    mans[0] = new Man({x:0,y:0,z:0}, {x:1,y:1,z:3}, 3);
+
+}
+
+function drawmans(){
+
+    for (i = 0; i < easels.length; i++){
+        mans[i].draw();
+    }
+
+}
+
+
+
