@@ -141,6 +141,35 @@ function drawsquares(){
 
 }
 
+//focus
+function Focus(x,y){
+this.x = x;
+this.y = y;
+
+this.image = images.focusSquare
+
+this.draw = function(){
+
+	ctx.drawImage(this.image,squares[this.x][this.y].h,squares[this.x][this.y].v - dHeight/2,this.image.width,this.image.height);
+
+}
+
+}
+
+var focus = {};
+
+function initialiseFocus(){
+
+	focus = new Focus(xCount,yCount-1);
+
+}
+
+function drawfocus(){
+
+	focus.draw();
+
+}
+
 
 //walls
 function Wall(LR, style){
@@ -235,17 +264,21 @@ function initalise(){
 	initialiseEasels();
 	initialiseSofas();
 	initialiseMans();
+	initialiseFocus();
 	
 	
-	draw();
+	setInterval(draw,100);
 }
 
 
 
 function draw(){
 
+canvas.width = canvas.width;
+
 drawwalls();
 drawsquares();
+drawfocus();
 drawwindow();
 drawdoor();
 draweasels();
