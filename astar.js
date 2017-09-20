@@ -1,6 +1,7 @@
 //A star - walking path
 
 var world = [];
+var pathEnd = [];
 
 function createworld()
 
@@ -28,10 +29,10 @@ for (y = 0; y <= yCount; y++){
 }
 
 
-//pathStart = [mans[0].pos.x,mans[0].pos.y];
+pathStart = [mans[0].pos.x,mans[0].pos.y];
 
 
-//currentPath = findPath(world,pathStart,pathEnd);
+currentPath = findPath(world,pathStart,pathEnd);
 
 
 }
