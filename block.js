@@ -146,8 +146,101 @@ function initialiseMans(){
 
 function drawmans(){
 
-    for (i = 0; i < easels.length; i++){
+    for (i = 0; i < mans.length; i++){
         mans[i].draw();
+    }
+
+}
+
+
+
+
+var furnis = [];
+function initialiseFurnis(){
+
+    furnis[0] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0);
+
+furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
+}
+
+
+
+function Furni(type, pos, size, orientation){
+    Block.call(this, pos, size);
+    this.type = type;
+    this.orientation = orientation;
+    
+    switch(this.type){
+    case "easel":
+       this.image = images.easel;
+       this.numorientations = 2;
+    break;
+    case "sofa":
+       this.image = images.sofa;
+       this.numorientations = 2;
+    break;
+    }
+
+    this.draw = function(){
+    
+    switch(this.type){
+    case "easel":
+       this.draweasel(); 
+    break;
+    case "sofa":
+       this.drawsofa();
+    break;
+    }
+    
+    }
+    
+}
+
+
+
+
+Furni.prototype.draweasel = function(){
+
+
+if (this.orientation == 0){
+        
+        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 21, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
+
+        }
+ else if (this.orientation == 1){
+
+     ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 3, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
+
+        }
+
+}
+
+
+
+Furni.prototype.drawsofa = function(){
+
+if (this.orientation == 0){
+        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        
+        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h, squares[this.pos.x][this.pos.y].v - dHeight* 2, dWidth*1.5, this.image.height+2.5);
+        
+
+        }
+        else if (this.orientation == 1){
+
+                  ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
+        
+
+        }
+
+
+}
+
+function drawfurnis(){
+
+    for (i = 0; i < furnis.length; i++){
+        furnis[i].draw();
     }
 
 }

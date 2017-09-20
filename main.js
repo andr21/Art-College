@@ -106,10 +106,11 @@ loadImages(sources);
 
 
 //Squares
-function Square(x, y){
+function Square(x, y, ocupied){
 
-	this.h = hOffset + x*dWidth/2 + (yCount - y)*dWidth/2
-	this.v = vOffset - x*dHeight/2 + (yCount - y)*dHeight/2
+	this.h = hOffset + x*dWidth/2 + (yCount - y)*dWidth/2;
+	this.v = vOffset - x*dHeight/2 + (yCount - y)*dHeight/2;
+	this.ocupied = ocupied;
 
 	this.draw = function(){
 		
@@ -125,7 +126,7 @@ function initialiseSquares(){
 	for (x = 0; x<= xCount; x++){
 		squares[x] = [];
 	for (y = 0; y<= yCount; y++){
-		squares[x][y] = new Square(x,y);
+		squares[x][y] = new Square(x,y,0);
 	}
 	}
 
@@ -261,8 +262,9 @@ function initalise(){
 
 	initialiseSquares();
 	initialiseWalls();
-	initialiseEasels();
-	initialiseSofas();
+	//initialiseEasels();
+	//initialiseSofas();
+	initialiseFurnis();
 	initialiseMans();
 	initialiseFocus();
 	
@@ -281,8 +283,9 @@ drawsquares();
 drawfocus();
 drawwindow();
 drawdoor();
-draweasels();
-drawsofas();
+//draweasels();
+//drawsofas();
+drawfurnis();
 drawmans();
 
 }
