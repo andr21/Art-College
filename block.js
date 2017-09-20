@@ -30,6 +30,7 @@ function Man(pos, size, orientation){
     Block.call(this, pos, size);
     this.orientation = orientation;
     this.numorientations = 4;
+    this.bounds = this.getBounds();
 
     switch(this.orientation){
         case 0:
@@ -49,9 +50,25 @@ function Man(pos, size, orientation){
 
     this.draw = function(){
         //needs to be fixed
-    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
+        ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
+        this.setocupied();
+    }
+}
+
+Man.prototype = Object.create(Block.prototype);
+Man.prototype.constructor = Man;
+
+
+Man.prototype.setocupied = function(){
+
+    for(x = this.bounds.xmin; x < this.bounds.xmax; x++){
+    for(y = this.bounds.ymin; y < this.bounds.ymax; y++){
+
+        squares[x][y].ocupied = 1;
 
     }
+    }
+
 }
 
 var mans = [];
@@ -79,48 +96,57 @@ function Furni(type, pos, size, orientation){
     Block.call(this, pos, size);
     this.type = type;
     this.orientation = orientation;
+    this.bounds = this.getBounds();
     
-    switch(this.type){
-    case "easel":
-       this.image = images.easel;
-       this.numorientations = 2;
-    break;
-    case "sofa":
-       this.image = images.sofa;
-       this.numorientations = 2;
-    break;
-    }
-
-    this.draw = function(){
-    
-    switch(this.type){
-    case "easel":
-       this.draweasel(); 
-    break;
-    case "sofa":
-       this.drawsofa();
-    break;
-    }
-    
-    }
+        switch(this.type){
+            case "easel":
+                this.image = images.easel;
+                this.numorientations = 2;
+                this.draw = function(){
+                    this.draweasel();
+                    this.setocupied();
+                }
+        break;
+            case "sofa":
+                this.image = images.sofa;
+                this.numorientations = 2;
+                this.draw = function(){
+                    this.drawsofa();
+                    this.setocupied();
+               }
+        break;
+        }
     
 }
 
+Furni.prototype = Object.create(Block.prototype);
+Furni.prototype.constructor = Furni;
 
+
+Furni.prototype.setocupied = function(){
+
+    for(x = this.bounds.xmin; x < this.bounds.xmax; x++){
+    for(y = this.bounds.ymin; y < this.bounds.ymax; y++){
+
+        squares[x][y].ocupied = 1;
+
+    }
+    }
+
+}
 
 
 Furni.prototype.draweasel = function(){
 
 
-if (this.orientation == 0){
-        
-        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 21, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
+        if (this.orientation == 0){
+            //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+            ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 21, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
 
         }
- else if (this.orientation == 1){
+        else if (this.orientation == 1){
 
-     ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 3, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
+            ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 3, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
 
         }
 
@@ -130,16 +156,14 @@ if (this.orientation == 0){
 
 Furni.prototype.drawsofa = function(){
 
-if (this.orientation == 0){
-        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        
-        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h, squares[this.pos.x][this.pos.y].v - dHeight* 2, dWidth*1.5, this.image.height+2.5);
-        
-
+        if (this.orientation == 0){
+            //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+            ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h, squares[this.pos.x][this.pos.y].v - dHeight* 2, dWidth*1.5, this.image.height+2.5);
+            
         }
         else if (this.orientation == 1){
 
-                  ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
+            ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
         
 
         }
@@ -152,9 +176,9 @@ var furnis = [];
 function initialiseFurnis(){
 
     furnis[0] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0);
-
-furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
+    furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
 }
+
 
 function drawfurnis(){
 
@@ -163,6 +187,5 @@ function drawfurnis(){
     }
 
 }
-
 
 

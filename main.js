@@ -262,8 +262,6 @@ function initalise(){
 
 	initialiseSquares();
 	initialiseWalls();
-	//initialiseEasels();
-	//initialiseSofas();
 	initialiseFurnis();
 	initialiseMans();
 	initialiseFocus();

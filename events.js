@@ -1,19 +1,17 @@
 //events
 
-//canvas.getBoundingClientRect(); effected when zooming in, test zooming in on PC
-
-var rect = canvas.getBoundingClientRect();
-
-
 
 //mouse move
 canvas.addEventListener('mousemove', function(e) {
 
-rect = canvas.getBoundingClientRect();
-
-Hloc = e.pageX - rect.left,
-
-Vloc = e.pageY - rect.top;
+    if(e.offsetX) {
+        Hloc = e.offsetX;
+        Vloc = e.offsetY;
+    }
+    else if(e.layerX) {
+        Hloc = e.layerX;
+        Vloc = e.layerY;
+    }
 
 	loop:
 	for (x = 0; x<= xCount; x++){
@@ -49,6 +47,6 @@ Vloc = e.pageY - rect.top;
 
 e.preventDefault()
 //console.log(x +' ' + y);
-console.log(x + ', ' + y + 'rectleft:' + rect.left + ', ' + e.pageX);
+//console.log(x + ', ' + y + 'rectleft:' + rect.left + ', ' + e.pageX + ', ' + e.offsetX) + ', ' + e.layerX;
 
 }, false);

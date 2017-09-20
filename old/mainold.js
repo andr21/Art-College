@@ -544,7 +544,6 @@ function redraw()
 
 
 // world is a 2d array of integers (eg world[10][15] = 0)
-
 // pathStart and pathEnd are arrays like [5,10]
 
 function findPath(world, pathStart, pathEnd)
