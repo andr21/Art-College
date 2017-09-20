@@ -1,3 +1,5 @@
+
+//block
 function Block(pos,size) {
  
  // position in 3d space (obj with attrs x,y,z)
@@ -22,92 +24,7 @@ Block.prototype.getBounds = function() {
 
 
 
-
-
-
-function Sofa(pos, size, orientation){
-    Block.call(this, pos, size);
-    this.image = images.sofa;
-    this.orientation = orientation;
-    this.numorientations = 2;
-
-    this.draw = function(){
-        if (this.orientation == 0){
-        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        
-        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h, squares[this.pos.x][this.pos.y].v - dHeight* 2, dWidth*1.5, this.image.height+2.5);
-        
-
-        }
-        else if (this.orientation == 1){
-
-                  ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - dWidth/2, squares[this.pos.x][this.pos.y].v - dHeight* 1.5 - dHeight/2, dWidth*1.5, this.image.height+2.5);
-        
-
-        }
-
-    }
-
-}
-
-var sofas = [];
-function initialiseSofas(){
-
-    sofas[0] = new Sofa({x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
-
-}
-
-function drawsofas(){
-
-    for (i = 0; i < easels.length; i++){
-        sofas[i].draw();
-    }
-
-}
-
-
-
-
-function Easel(pos, size, orientation){
-    Block.call(this, pos, size);
-    this.image = images.easel;
-    this.orientation = orientation;
-    this.numorientations = 2;
-
-    this.draw = function(){
-        if (this.orientation == 0){
-        //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 21, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
-
-        }
-        else if (this.orientation == 1){
-
-        ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 3, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
-
-        }
-
-    }
-
-}
-
-var easels = [];
-function initialiseEasels(){
-
-    easels[0] = new Easel({x:2,y:5,z:0}, {x:1,y:1,z:2}, 0);
-
-}
-
-function draweasels(){
-
-    for (i = 0; i < easels.length; i++){
-        easels[i].draw();
-    }
-
-}
-
-
-
-
+//man
 
 function Man(pos, size, orientation){
     Block.call(this, pos, size);
@@ -155,14 +72,7 @@ function drawmans(){
 
 
 
-var furnis = [];
-function initialiseFurnis(){
-
-    furnis[0] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0);
-
-furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
-}
-
+//Furni
 
 
 function Furni(type, pos, size, orientation){
@@ -235,6 +145,15 @@ if (this.orientation == 0){
         }
 
 
+}
+
+
+var furnis = [];
+function initialiseFurnis(){
+
+    furnis[0] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0);
+
+furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0);
 }
 
 function drawfurnis(){

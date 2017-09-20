@@ -283,8 +283,6 @@ drawsquares();
 drawfocus();
 drawwindow();
 drawdoor();
-//draweasels();
-//drawsofas();
 drawfurnis();
 drawmans();
 
