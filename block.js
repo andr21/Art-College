@@ -31,6 +31,8 @@ function Man(pos, size, orientation){
     this.orientation = orientation;
     this.numorientations = 4;
     this.bounds = this.getBounds();
+    this.XhalfStep = 0;
+    this.YhalfStep = 0;
 
     switch(this.orientation){
         case 0:
@@ -66,13 +68,21 @@ function Man(pos, size, orientation){
     
     if( pathnum % 1 > 0){
     
+    this.XhalfStep = (this.path[pathnum + 1/2][0] - this.path[pathnum - 1/2][0])/2;
+    this.YhalfStep = (this.path[pathnum + 1/2][1] - this.path[pathnum - 1/2][1])/2;
+    
+    this.pos.x = this.path[pathnum - 1/2][0] + this.XhalfStep;
+    
+    this.pos.y = this.path[pathnum - 1/2][1] + this.YhalfStep;
     
     }
     else{
     
+    this.XhalfStep = 0;
+    this.YhalfStep = 0;
     this.pos.x = this.path[pathnum][0];
     this.pos.y = this.path[pathnum][1];
-   
+    
     }
     
     this.pathprogress++;
@@ -81,6 +91,8 @@ function Man(pos, size, orientation){
     
     }
     
+    console.log((this.XhalfStep - this.YhalfStep) * dWidth + ', ' + (-this.XhalfStep - this.YhalfStep) * dHeight);
+    //console.log(this.XhalfStep + ', ' + this.YhalfStep);
     }
 
     this.draw = function(){
@@ -91,7 +103,8 @@ function Man(pos, size, orientation){
         
         
         //needs to be fixed
-    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
+    ctx.drawImage(this.image,squares[this.pos.x - this.XhalfStep][this.pos.y - this.YhalfStep].h + (this.XhalfStep - this.YhalfStep) * dWidth - 14, squares[this.pos.x - this.XhalfStep][this.pos.y - this.YhalfStep].v + (-this.XhalfStep - this.YhalfStep) * dHeight - 111,120,120);
+    
         this.setocupied();
     }
 }
