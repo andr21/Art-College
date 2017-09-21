@@ -80,18 +80,23 @@ loop:
 
 			     if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
 
-				    pathEnd= [x,y];
-				    createworld();
-				    break loop;
+					if(!(mans[0].pos.x == x && mans[0].pos.y == y) && squares[x][y].ocupied == 0){
+					    pathEnd= [x,y];
+					    createworld();
+					    break loop;
+					}
+
 			     }
 
 			}else{
 
 			  if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
-				    pathEnd = [x,y];
-				    createworld();
-				    break loop;
+				    if(!(mans[0].pos.x == x && mans[0].pos.y == y) && squares[x][y].ocupied == 0){
+					    pathEnd = [x,y];
+					    createworld();
+					    break loop;
+					}
 			  }
 
 			}

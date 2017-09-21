@@ -29,7 +29,7 @@ for (y = 0; y <= yCount; y++){
 }
 
 
-pathStart = [mans[0].pos.x,mans[0].pos.y];
+pathStart = [Math.floor(mans[0].pos.x),Math.floor(mans[0].pos.y)];
 
 
 currentPath = findPath(world,pathStart,pathEnd);
