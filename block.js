@@ -47,10 +47,51 @@ function Man(pos, size, orientation){
             break;
     }
 
+    this.walk = false;
+    this.path = [];
+    this.pathprogress = 0;
+    
+    this.startwalk = function(path){
+     
+     this.path = path;
+     this.walk = true;
+     this.pathprogress = 1;
+    
+    }
+    
+    this.step = function(){
+
+    
+    var pathnum = this.pathprogress/2;
+    
+    if( pathnum % 1 > 0){
+    
+    
+    }
+    else{
+    
+    this.pos.x = this.path[pathnum][0];
+    this.pos.y = this.path[pathnum][1];
+   
+    }
+    
+    this.pathprogress++;
+    if(this.pathprogress > (this.path.length-1) * 2){
+    this.walk = false;
+    
+    }
+    
+    }
 
     this.draw = function(){
+        
+        if(this.walk == true){
+          this.step();
+        }
+        
+        
         //needs to be fixed
-        ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
+    ctx.drawImage(this.image,squares[this.pos.x][this.pos.y].h - 14,squares[this.pos.x][this.pos.y].v - 111,120,120);
         this.setocupied();
     }
 }

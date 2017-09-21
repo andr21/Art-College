@@ -34,6 +34,7 @@ pathStart = [mans[0].pos.x,mans[0].pos.y];
 
 currentPath = findPath(world,pathStart,pathEnd);
 
+mans[0].startwalk(currentPath);
 
 }
 
