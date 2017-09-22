@@ -53,13 +53,14 @@ IsoBlock.sortBlocks = function(blocks, camera) {
 	}
 
 	// While there are still blocks we can draw...
-	var blocksDrawn = [];
+	//var blocksDrawn = [];
 	while (blocksToDraw.length > 0) {
 
 		// Draw block by removing one from "to draw" and adding
 		// it to the end of our "drawn" list.
 		var block = blocksToDraw.pop();
-		blocksDrawn.push(block);
+		//blocksDrawn.push(block);
+		block.draw();
 
 		// Tell blocks in front of the one we just drew
 		// that they can stop waiting on it.
@@ -75,7 +76,7 @@ IsoBlock.sortBlocks = function(blocks, camera) {
 		}
 	}
 
-	return blocksDrawn;
+	//return blocksDrawn;
 };
 
 

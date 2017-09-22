@@ -262,11 +262,8 @@ function initalise(){
 
 	initialiseSquares();
 	initialiseWalls();
-	initialiseFurnis();
-	initialiseMans();
 	initialiseFocus();
-	
-	
+	initialiseObjects();
 	setInterval(draw,100);
 }
 
@@ -281,8 +278,7 @@ drawsquares();
 drawfocus();
 drawwindow();
 drawdoor();
-drawfurnis();
-drawmans();
+drawobjects();
 
 }
 

@@ -29,12 +29,12 @@ for (y = 0; y <= yCount; y++){
 }
 
 
-pathStart = [Math.floor(mans[0].pos.x),Math.floor(mans[0].pos.y)];
+pathStart = [Math.floor(objects[0].pos.x),Math.floor(objects[0].pos.y)];
 
 
 currentPath = findPath(world,pathStart,pathEnd);
 
-mans[0].startwalk(currentPath);
+objects[0].startwalk(currentPath);
 
 }
 

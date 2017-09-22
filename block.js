@@ -154,21 +154,6 @@ Man.prototype.removeocupied = function(){
 
 }
 
-var mans = [];
-function initialiseMans(){
-
-    mans[0] = new Man({x:9,y:4,z:0}, {x:1,y:1,z:3},2);
-
-}
-
-function drawmans(){
-
-    for (i = 0; i < mans.length; i++){
-        mans[i].draw();
-    }
-
-}
-
 
 
 
@@ -271,23 +256,21 @@ Furni.prototype.drawlamp = function(){
 }
 
 
-var furnis = [];
-function initialiseFurnis(){
 
-    furnis[0] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0, 0);
-    furnis[1] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0, 0);
-    furnis[2] = new Furni("lamp",{x:4,y:3,z:0}, {x:1,y:1,z:2}, 0, 0);
-    furnis[3] = new Furni("easel",{x:0,y:0,z:0}, {x:1,y:1,z:2}, 0, 0);
-    furnis[4] = new Furni("easel",{x:1,y:0,z:0}, {x:1,y:1,z:2}, 0, 0);
-}
+var objects = [];
+function initialiseObjects(){
 
-
-function drawfurnis(){
-
-    for (i = 0; i < furnis.length; i++){
-        furnis[i].draw();
-    }
+    objects[0] = new Man({x:9,y:4,z:0}, {x:1,y:1,z:3},2);
+    objects[1] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0, 0);
+    objects[2] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0, 0);
+    objects[3] = new Furni("lamp",{x:4,y:3,z:0}, {x:1,y:1,z:2}, 0, 0);
+    objects[4] = new Furni("easel",{x:0,y:0,z:0}, {x:1,y:1,z:2}, 0, 0);
+    objects[5] = new Furni("easel",{x:1,y:0,z:0}, {x:1,y:1,z:2.5}, 0, 0);
+    objects[6] = new Furni("lamp",{x:6,y:2,z:0}, {x:1,y:1,z:2.5}, 0, 0);
 
 }
 
+function drawobjects(){
+   IsoBlock.sortBlocks(objects, camera);
+}
 
