@@ -18,6 +18,7 @@ var dHeight = 45;
 
 //wall and floor height
 var wallHeight = 135;
+var floorDepth = 10;
 
 //room dimensions
 var xCount = 9;
@@ -45,24 +46,24 @@ wallHeight = wallHeight * s;
 
 var sources = {
 
-sofa: "old/img/sofa.png",
-flooring: "old/img/floor.png",
-LeftWall0: "old/img/wallleft0.png",
-RightWall0: "old/img/wallright0.png",
-LeftWall1: "old/img/wallleft1.png",
-RightWall1: "old/img/wallright1.png",
-window: "old/img/window.png",
-door: "old/img/door.png",
-lamp: "old/img/lamp.png",
-grain: "old/img/grain.png",
-stageEmpty: "old/img/emptystage.png",
-focusSquare: "old/img/focus.png",
-easel: "old/img/easel.png",
-car: "old/img/car.png",
-boy: "old/img/People/Little_Boy_Pink.png",
-boyL: "old/img/People/Little_Boy_Pink_Left.png",
-boyBL: "old/img/People/Little_Boy_Pink_bleft.png",
-boyBR: "old/img/People/Little_Boy_Pink_bright.png"
+sofa: "img/sofa.png",
+flooring: "img/floor.png",
+LeftWall0: "img/wallleft0.png",
+RightWall0: "img/wallright0.png",
+LeftWall1: "img/wallleft1.png",
+RightWall1: "img/wallright1.png",
+window: "img/window.png",
+door: "img/door.png",
+lamp: "img/lamp.png",
+grain: "img/grain.png",
+stageEmpty: "img/emptystage.png",
+focusSquare: "img/focus.png",
+easel: "img/easel.png",
+car: "img/car.png",
+boy: "img/People/Little_Boy_Pink.png",
+boyL: "img/People/Little_Boy_Pink_Left.png",
+boyBL: "img/People/Little_Boy_Pink_bleft.png",
+boyBR: "img/People/Little_Boy_Pink_bright.png"
 
 }
 
@@ -171,6 +172,15 @@ function drawfocus(){
 
 }
 
+//grain
+
+
+function drawgrain(){
+ctx.globalAlpha = 0.6;
+ctx.drawImage(images.grain, 0, 0, canvas.width,canvas.height);
+ctx.globalAlpha = 1;
+}
+
 
 //walls
 function Wall(LR, style){
@@ -256,6 +266,40 @@ ctx.drawImage(images.door,0,0,images.door.width, images.door.height, squares[xCo
 
 }
 
+function drawfloorLeft() {
+
+ctx.beginPath();
+
+ctx.moveTo(squares[0][yCount].h, squares[0][yCount].v);
+ctx.lineTo(squares[0][0].h + dWidth/2, squares[0][0].v + dHeight/2);
+ctx.lineTo(squares[0][0].h + dWidth/2, squares[0][0].v + dHeight/2 + floorDepth);
+ctx.lineTo(squares[0][yCount].h, squares[0][yCount].v + floorDepth);
+
+ctx.fillStyle = "#181919";
+
+ctx.fill();
+
+
+
+}
+
+
+
+function drawfloorRight() {
+
+ctx.beginPath();
+
+ctx.moveTo(squares[0][0].h + dWidth/2, squares[0][0].v + dHeight/2);
+ctx.lineTo(squares[xCount][0].h + dWidth, squares[xCount][0].v);
+ctx.lineTo(squares[xCount][0].h + dWidth, squares[xCount][0].v + floorDepth);
+ctx.lineTo(squares[0][0].h + dWidth/2, squares[0][0].v + dHeight/2 + floorDepth);
+ctx.fillStyle = "#181919";
+
+ctx.fill();
+
+
+}
+
 
 
 function initalise(){
@@ -275,10 +319,13 @@ canvas.width = canvas.width;
 
 drawwalls();
 drawsquares();
+drawfloorRight();
+drawfloorLeft();
 drawfocus();
 drawwindow();
 drawdoor();
 drawobjects();
+drawgrain();
 
 }
 

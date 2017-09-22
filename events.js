@@ -46,8 +46,6 @@ canvas.addEventListener('mousemove', function(e) {
 
 
 e.preventDefault()
-//console.log(x +' ' + y);
-//console.log(x + ', ' + y + 'rectleft:' + rect.left + ', ' + e.pageX + ', ' + e.offsetX) + ', ' + e.layerX;
 
 }, false);
 

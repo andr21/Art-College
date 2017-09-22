@@ -1,4 +1,5 @@
 
+//Thank you https://shaunlebron.github.io/IsometricBlocks/ !!!
 
 // Add a remove value function to the Array class.
 Array.prototype.remove = function() {
@@ -85,47 +86,12 @@ IsoBlock.sortBlocks = function(blocks, camera) {
 
 //testing
 
-
-
 var origin = {x: 450, y: 600 };
 
 var camera = {};
 
-var camera = new IsoBlock.Camera(origin, 200);
-
-
-IsoBlock.Block = function(pos,size) {
-
-	// position in 3d space (obj with attrs x,y,z)
-	this.pos = pos;
-
-	// size of each dimension (obj with attrs x,y,z)
-	this.size = size;
-
-};
-
-IsoBlock.Block.prototype = {
-	getBounds: function() {
-		var p = this.pos;
-		var s = this.size;
-		return {
-			xmin: p.x,
-			xmax: p.x + s.x,
-			ymin: p.y,
-			ymax: p.y + s.y,
-			zmin: p.z,
-			zmax: p.z + s.z,
-		};
-	},
-};
+var camera = new IsoBlock.Camera(origin, 90);
 
 
 
-var blocks = [
-				new IsoBlock.Block({x:1,y:0,z:0},{x:1,y:1,z:1}),
-				new IsoBlock.Block({x:0,y:0,z:0},{x:1,y:1,z:1}),
-				
-			];
 
-//works!!! just need to find the right place :)
-//furnis = IsoBlock.sortBlocks(furnis, camera);
