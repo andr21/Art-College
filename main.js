@@ -28,6 +28,10 @@ var yCount = 5;
 var hOffset = 100;
 var vOffset = 420;
 
+//stage area
+var stageH = 700;
+var stageV = 450;
+
 //trying out scaling/zooming in and out
 function scale(s){
 dWidth = 90;
@@ -171,6 +175,15 @@ function drawfocus(){
 	focus.draw();
 
 }
+
+//stage
+
+function drawstage(){
+
+ctx.drawImage(images.stageEmpty,0,0,images.stageEmpty.width, images.stageEmpty.height, squares[0][0].h +4.5*dWidth, squares[0][0].v - 3*dHeight, images.stageEmpty.width*3/4, images.stageEmpty.height*3/4);
+
+}
+
 
 //grain
 
@@ -325,10 +338,11 @@ drawfocus();
 drawwindow();
 drawdoor();
 drawobjects();
+drawstage();
 drawgrain();
 
-}
 
+}
  
  
  

@@ -22,6 +22,21 @@ Block.prototype.getBounds = function() {
                         
 };
 
+Block.prototype.isClicked = function(x,y){
+
+ for(i = this.bounds.xmin; i < this.bounds.xmax; i++){
+ for(j = this.bounds.ymin; j < this.bounds.ymax; j++){
+ 
+   if(x == i && y == j){
+     return true;
+   }
+   
+ }
+ }
+
+  return false;
+}
+
 
 
 //man
@@ -166,11 +181,13 @@ function Furni(type, pos, size, orientation, action){
     this.orientation = orientation;
     this.action = action;
     this.bounds = this.getBounds();
+    this.select = 0;
     
         switch(this.type){
             case "easel":
                 this.image = images.easel;
                 this.numorientations = 2;
+                this.numactions = 0;
                 this.draw = function(){
                     this.draweasel();
                     this.setocupied();
@@ -179,6 +196,7 @@ function Furni(type, pos, size, orientation, action){
             case "sofa":
                 this.image = images.sofa;
                 this.numorientations = 2;
+                this.numactions = 0;
                 this.draw = function(){
                     this.drawsofa();
                     this.setocupied();
@@ -213,6 +231,13 @@ Furni.prototype.setocupied = function(){
 
 }
 
+
+Furni.prototype.action = function(){
+ this.action++;
+  if(this.action > this.numactions){
+    this.action = 0;
+  }
+}
 
 Furni.prototype.draweasel = function(){
 
@@ -253,9 +278,53 @@ Furni.prototype.drawlamp = function(){
 
         ctx.drawImage(this.image,(1 - this.action)*this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - 26, squares[this.pos.x][this.pos.y].v - this.image.height + dHeight/2 + 3, this.image.width/2, this.image.height);
 
+   if(this.select == 1){
+      ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, stageH - 26, stageV - this.image.height + dHeight/2 + 3, this.image.width/2 * 0.5, this.image.height * 0.5);
+      
+   }
+   
+   
+   
+
 }
 
 
+
+
+//focus stage
+
+var focusstage = new FocusStage;
+
+function FocusStage(){
+ this.on = 0;
+ this.focus = 0.5;
+
+
+ this.draw = function(){
+
+  if(this.focus == 0.5){
+   this.on = 0;
+  }else{
+  this.on = 1;
+  objects[this.focus].select = 1;
+  }
+ }
+
+
+this.select = function(object){
+  if(!this.focus == 0.5){
+    objects[this.focus].select = 0;
+  }
+  this.focus = object;
+  this.draw();
+ }
+
+}
+
+
+
+
+//objects
 
 var objects = [];
 function initialiseObjects(){
@@ -273,4 +342,6 @@ function initialiseObjects(){
 function drawobjects(){
    IsoBlock.sortBlocks(objects, camera);
 }
+
+
 
