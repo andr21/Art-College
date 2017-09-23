@@ -252,6 +252,12 @@ Furni.prototype.draweasel = function(){
             ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h + 3, squares[this.pos.x][this.pos.y].v - this.image.height + 22, this.image.width/2, this.image.height);
 
         }
+        
+        if(this.select == 1){
+        
+        ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, stageH + 25, stageV + 15, this.image.width/2 * 0.65, this.image.height * 0.65);
+        
+        }
 
 }
 
@@ -279,7 +285,7 @@ Furni.prototype.drawlamp = function(){
         ctx.drawImage(this.image,(1 - this.action)*this.image.width/2,0,this.image.width/2, this.image.height, squares[this.pos.x][this.pos.y].h - 26, squares[this.pos.x][this.pos.y].v - this.image.height + dHeight/2 + 3, this.image.width/2, this.image.height);
 
    if(this.select == 1){
-      ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, stageH - 26, stageV - this.image.height + dHeight/2 + 3, this.image.width/2 * 0.5, this.image.height * 0.5);
+      ctx.drawImage(this.image,this.image.width/2,0,this.image.width/2, this.image.height, stageH, stageV - 10, this.image.width/2 * 0.65, this.image.height * 0.65);
       
    }
    
@@ -312,7 +318,7 @@ function FocusStage(){
 
 
 this.select = function(object){
-  if(!this.focus == 0.5){
+  if(this.focus != 0.5){
     objects[this.focus].select = 0;
   }
   this.focus = object;

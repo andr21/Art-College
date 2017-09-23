@@ -29,8 +29,8 @@ var hOffset = 100;
 var vOffset = 420;
 
 //stage area
-var stageH = 700;
-var stageV = 450;
+var stageH = 750;
+var stageV = 420;
 
 //trying out scaling/zooming in and out
 function scale(s){
@@ -337,8 +337,8 @@ drawfloorLeft();
 drawfocus();
 drawwindow();
 drawdoor();
-drawobjects();
 drawstage();
+drawobjects();
 drawgrain();
 
 
