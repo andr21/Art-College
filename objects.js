@@ -32,6 +32,7 @@ Block.prototype.isClicked = function(x,y){
         }
        
     }
+    }
      
     return false;
 }
@@ -209,7 +210,7 @@ function Furni(type, pos, size, orientation, action){
                 this.draw = function(){
                     this.drawsofa();
                     this.setocupied();
-               }
+                }
                 break;
         case "lamp":
                 this.image = images.lamp;
@@ -242,8 +243,8 @@ Furni.prototype.setocupied = function(){
 
 //move
 Furni.prototype.movefurni = function(){
-this.move = 1;
-furnimoving = 1;
+    this.move = 1;
+    furnimoving = 1;
 }
 
 //action
@@ -355,6 +356,8 @@ var possible = true;
     if(possible == true){
         this.pos.x = x;
         this.pos.y = y;
+        this.move = 0;
+        furnimoving = 0;
     }
 
 }

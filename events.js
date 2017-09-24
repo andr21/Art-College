@@ -28,7 +28,11 @@ canvas.addEventListener('mousemove', function(e) {
 				    focus.y = y;
 
 				    if(furnimoving == 1){
-				    	objects[focusstage.focus].placefurni(x,y);
+				    	if(squares[x][y].ocupied ==0){
+				    		objects[focusstage.focus].pos.x = x;
+				    		objects[focusstage.focus].pos.y = y;
+				    	}
+				    	//objects[focusstage.focus].placefurni(x,y);
 				    }
 
 
@@ -44,7 +48,11 @@ canvas.addEventListener('mousemove', function(e) {
 				    break loop;
 
 				    if(furnimoving == 1){
-				    	objects[focusstage.focus].placefurni(x,y);
+				    	if(squares[x][y].ocupied ==0){
+				    		objects[focusstage.focus].pos.x = x;
+				    		objects[focusstage.focus].pos.y = y;
+				    	}
+				    	//objects[focusstage.focus].placefurni(x,y);
 				    }
 			  }
 
@@ -87,19 +95,25 @@ for (y = 0; y<= yCount; y++){
 	if(V <= dHeight/2){
 
 		if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
-					
-		    if(squares[x][y].ocupied == 0){
-					    
-				focusstage.select(0.5);
-					    
-				pathEnd= [x,y];
-				createworld();
-				break loop;
+			
+			if(furnimoving == 1){
+				objects[focusstage.focus].placefurni(x,y);
+			}
+			else{
 
-			}else{
-				
-			    focusstage.select(findobjectclicked(x,y));
-				
+			    if(squares[x][y].ocupied == 0){
+						    
+					focusstage.select(0.5);
+						    
+					pathEnd= [x,y];
+					createworld();
+					break loop;
+
+				}else{
+					
+				    focusstage.select(findobjectclicked(x,y));
+					
+				}
 			}
 
 		}
@@ -108,19 +122,23 @@ for (y = 0; y<= yCount; y++){
 
 		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
+			if(furnimoving == 1){
+
+			}
+			else{			    
+		        if(squares[x][y].ocupied == 0){
+
+		            focusstage.select(0.5);
 						    
-	        if(squares[x][y].ocupied == 0){
+					pathEnd = [x,y];
+					createworld();
+					break loop;
 
-	            focusstage.select(0.5);
-					    
-				pathEnd = [x,y];
-				createworld();
-				break loop;
-
-			}else{
-			 
-				focusstage.select(findobjectclicked(x,y));
-			  
+				}else{
+				 
+					focusstage.select(findobjectclicked(x,y));
+				  
+				}
 			}
 					
 					
