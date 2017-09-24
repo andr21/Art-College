@@ -14,6 +14,8 @@ canvas.style.background = "#202020";
 //buttons
 var movebutton = document.getElementById('movebutton');
 movebutton.style.display = 'none';
+var rotatebutton = document.getElementById('rotatebutton');
+rotatebutton.style.display = 'none';
 
 //diamond width and height
 var dWidth = 90;

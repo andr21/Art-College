@@ -202,3 +202,13 @@ e.preventDefault()
 }, false);
 
 
+
+//rotatebutton.onclick = rotatebuttonclick();
+
+
+function rotatebuttonclick(){
+  objects[focusstage.focus].rotate();
+
+}
+
+

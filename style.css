@@ -5,3 +5,26 @@ canvas {
 display: block;
 
 margin: 0 auto; }
+
+
+#container
+{
+  height:600px;
+  position: relative;
+  width: 900px;
+  margin: 0 auto;
+}
+
+#movebutton
+{
+  bottom: 25px;
+  right:130px;
+  position: absolute;
+}
+
+#rotatebutton
+{
+  bottom: 25px;
+  right:70px;
+  position: absolute;
+}

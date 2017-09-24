@@ -244,8 +244,15 @@ Furni.prototype.setocupied = function(){
 
 Furni.prototype.action = function(){
  this.action++;
-  if(this.action > this.numactions){
+  if(this.action >= this.numactions){
     this.action = 0;
+  }
+}
+
+Furni.prototype.rotate = function(){
+  this.orientation++;
+  if(this.orientation >= this.numorientations){
+    this.orientation = 0;
   }
 }
 
@@ -347,10 +354,12 @@ this.select = function(object){
   if(this.on == 1){
   
     movebutton.style.display = 'block';
+    rotatebutton.style.display = 'block';
 
   }else{
   
     movebutton.style.display = 'none';
+    rotatebutton.style.display = 'none';
   
   }
  
