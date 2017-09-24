@@ -26,6 +26,12 @@ canvas.addEventListener('mousemove', function(e) {
 
 				    focus.x = x;
 				    focus.y = y;
+
+				    if(furnimoving == 1){
+				    	objects[focusstage.focus].placefurni(x,y);
+				    }
+
+
 				    break loop;
 			     }
 
@@ -36,6 +42,10 @@ canvas.addEventListener('mousemove', function(e) {
 				    focus.x = x;
 				    focus.y = y;
 				    break loop;
+
+				    if(furnimoving == 1){
+				    	objects[focusstage.focus].placefurni(x,y);
+				    }
 			  }
 
 			}
@@ -58,65 +68,68 @@ canvas.addEventListener('click', function(e) {
 
 
 if(e.offsetX) {
-        Hclick = e.offsetX;
-        Vclick = e.offsetY;
-    }
-    else if(e.layerX) {
-        Hclick = e.layerX;
-        Vclick = e.layerY;
-    }
+    Hclick = e.offsetX;
+    Vclick = e.offsetY;
+}
+else if(e.layerX) {
+    Hclick = e.layerX;
+    Vclick = e.layerY;
+}
 
 
 loop:
-	for (x = 0; x<= xCount; x++){
-	for (y = 0; y<= yCount; y++){
+for (x = 0; x<= xCount; x++){
+for (y = 0; y<= yCount; y++){
 
-		H = Hclick - squares[x][y].h;
-		V = Vclick - squares[x][y].v + dHeight/2;
+	H = Hclick - squares[x][y].h;
+	V = Vclick - squares[x][y].v + dHeight/2;
 
-			if(V <= dHeight/2){
+	if(V <= dHeight/2){
 
-			     if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
+		if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
 					
-		       if(squares[x][y].ocupied == 0){
+		    if(squares[x][y].ocupied == 0){
 					    
-					    focusstage.select(0.5);
+				focusstage.select(0.5);
 					    
-					    pathEnd= [x,y];
-					    createworld();
-					    break loop;
-				}else{
-				
-			     focusstage.select(findobjectclicked(x,y));
-				
-				}
-
-			     }
+				pathEnd= [x,y];
+				createworld();
+				break loop;
 
 			}else{
+				
+			    focusstage.select(findobjectclicked(x,y));
+				
+			}
 
-			  if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
+		}
+
+	}else{
+
+		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
 						    
-	         if(squares[x][y].ocupied == 0){
-	                    focusstage.select(0.5);
+	        if(squares[x][y].ocupied == 0){
+
+	            focusstage.select(0.5);
 					    
-					    pathEnd = [x,y];
-					    createworld();
-					    break loop;
-			 }else{
+				pathEnd = [x,y];
+				createworld();
+				break loop;
+
+			}else{
 			 
-			  focusstage.select(findobjectclicked(x,y));
+				focusstage.select(findobjectclicked(x,y));
 			  
-			 }
+			}
 					
 					
-			}
-
-			}
+		}
 
 	}
-	}
+
+}
+}
 
 
 e.preventDefault()
@@ -125,14 +138,15 @@ e.preventDefault()
 }, false);
 
 
-function findobjectclicked(x,y){
-for(l = 0; l < objects.length; l++){
- if(objects[l].isClicked(x,y) == 1){
- 
-    return l;
- }
-}
 
+function findobjectclicked(x,y){
+	for(l = 0; l < objects.length; l++){
+		if(objects[l].isClicked(x,y) == 1){
+	 
+	    	return l;
+
+		}
+	}
 }
 
 
@@ -143,57 +157,58 @@ canvas.addEventListener('dblclick', function(e) {
 
 
 if(e.offsetX) {
-        Hclick = e.offsetX;
-        Vclick = e.offsetY;
-    }
-    else if(e.layerX) {
-        Hclick = e.layerX;
-        Vclick = e.layerY;
-    }
+    Hclick = e.offsetX;
+    Vclick = e.offsetY;
+}
+else if(e.layerX) {
+    Hclick = e.layerX;
+    Vclick = e.layerY;
+}
 
 
 loop:
-	for (x = 0; x<= xCount; x++){
-	for (y = 0; y<= yCount; y++){
+for (x = 0; x<= xCount; x++){
+for (y = 0; y<= yCount; y++){
 
-		H = Hclick - squares[x][y].h;
-		V = Vclick - squares[x][y].v + dHeight/2;
+	H = Hclick - squares[x][y].h;
+	V = Vclick - squares[x][y].v + dHeight/2;
 
-			if(V <= dHeight/2){
+	if(V <= dHeight/2){
 
-			     if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
+		if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
 					
-		       if(squares[x][y].ocupied == 0){
-					//do nothing    
+		    if(squares[x][y].ocupied == 0){
+				//do nothing    
 					    
-				}else{
-				
-			objects[findobjectclicked(x,y)].action();
-				
-				}
-
-			     }
-
 			}else{
+				
+				objects[findobjectclicked(x,y)].nudge();
+				
+			}
 
-			  if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
+		}
+
+	}else{
+
+		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
 						    
-	         if(squares[x][y].ocupied == 0){
+	        if(squares[x][y].ocupied == 0){
 					    //do nothing
-			 }else{
+
+			}else{
 			 
-			  objects[findobjectclicked(x,y)].action();
+				objects[findobjectclicked(x,y)].nudge();
 			  
-			 }
+			}
 					
 					
-			}
-
-			}
+		}
 
 	}
-	}
+
+}
+}
 
 
 e.preventDefault()
@@ -208,6 +223,11 @@ e.preventDefault()
 
 function rotatebuttonclick(){
   objects[focusstage.focus].rotate();
+
+}
+
+function movebuttonclick(){
+  objects[focusstage.focus].movefurni();
 
 }
 

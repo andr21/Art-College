@@ -34,6 +34,9 @@ var yCount = 5;
 var hOffset = 100;
 var vOffset = 420;
 
+//moving
+var furnimoving = 0;
+
 //stage area
 var stageH = 750;
 var stageV = 420;
@@ -303,7 +306,6 @@ ctx.fill();
 }
 
 
-
 function drawfloorRight() {
 
 ctx.beginPath();
@@ -321,12 +323,15 @@ ctx.fill();
 
 
 
+
+
 function initalise(){
 
 	initialiseSquares();
 	initialiseWalls();
 	initialiseFocus();
 	initialiseObjects();
+
 	setInterval(draw,100);
 }
 
