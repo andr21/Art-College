@@ -1,8 +1,9 @@
 //main.js
 
 
-//testing
+//text
 var p = document.querySelector('#testp');
+var itemname = document.querySelector('#itemname');
 
 //canvas set up
 var canvas = document.querySelector('#myCanvas');

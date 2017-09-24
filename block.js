@@ -352,12 +352,12 @@ this.select = function(object){
  
  this.buttons = function(){
   if(this.on == 1){
-  
+    itemname.innerHTML = objects[this.focus].type;
     movebutton.style.display = 'block';
     rotatebutton.style.display = 'block';
 
   }else{
-  
+    itemname.innerHTML = "";
     movebutton.style.display = 'none';
     rotatebutton.style.display = 'none';
   
