@@ -4,13 +4,16 @@
 //testing
 var p = document.querySelector('#testp');
 
-
 //canvas set up
 var canvas = document.querySelector('#myCanvas');
 ctx = canvas.getContext("2d");
 canvas.width = 900;
 canvas.height = 600;
 canvas.style.background = "#202020";
+
+//buttons
+var movebutton = document.getElementById('movebutton');
+movebutton.style.display = 'none';
 
 //diamond width and height
 var dWidth = 90;
@@ -344,7 +347,7 @@ drawgrain();
 
 }
  
- 
+
  
  
 

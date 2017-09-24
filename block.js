@@ -48,6 +48,7 @@ function Man(pos, size, orientation){
     this.bounds = this.getBounds();
     this.XhalfStep = 0;
     this.YhalfStep = 0;
+    this.select = 0;
     
     this.updateimage = function(){
         switch(this.orientation){
@@ -138,6 +139,15 @@ function Man(pos, size, orientation){
     ctx.drawImage(this.image,squares[this.pos.x - this.XhalfStep][this.pos.y - this.YhalfStep].h + (this.XhalfStep - this.YhalfStep) * dWidth/2 - 14, squares[this.pos.x - this.XhalfStep][this.pos.y - this.YhalfStep].v + (-this.XhalfStep - this.YhalfStep) * dHeight/2 - 111,120,120);
         this.bounds = this.getBounds();
         this.setocupied();
+        
+        if(this.select == 1){
+        
+        ctx.drawImage(images.boy,stageH + 3, stageV + 16,120 * 0.7,120 * 0.7);
+        
+        
+        }
+        
+        
     }
 }
 
@@ -276,8 +286,13 @@ Furni.prototype.drawsofa = function(){
         
 
         }
-
-
+        
+     if(this.select == 1){
+     
+     ctx.drawImage(this.image,0,0,this.image.width/2, this.image.height, stageH, stageV + 28, dWidth*1.5 * 0.65, (this.image.height+2.5) * 0.65);
+     
+     }   
+        
 }
 
 Furni.prototype.drawlamp = function(){
@@ -314,6 +329,8 @@ function FocusStage(){
   this.on = 1;
   objects[this.focus].select = 1;
   }
+  
+  this.buttons();
  }
 
 
@@ -323,6 +340,20 @@ this.select = function(object){
   }
   this.focus = object;
   this.draw();
+ }
+ 
+ 
+ this.buttons = function(){
+  if(this.on == 1){
+  
+    movebutton.style.display = 'block';
+
+  }else{
+  
+    movebutton.style.display = 'none';
+  
+  }
+ 
  }
 
 }
