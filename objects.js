@@ -192,6 +192,7 @@ function Furni(type, pos, size, orientation, action){
     this.bounds = this.getBounds();
     this.select = 0;
     this.move = 0;
+    this.setocupied();
     
         switch(this.type){
         case "easel":
@@ -200,7 +201,6 @@ function Furni(type, pos, size, orientation, action){
                 this.numactions = 0;
                 this.draw = function(){
                     this.draweasel();
-                    this.setocupied();
                 }
                 break;
         case "sofa":
@@ -209,7 +209,6 @@ function Furni(type, pos, size, orientation, action){
                 this.numactions = 0;
                 this.draw = function(){
                     this.drawsofa();
-                    this.setocupied();
                 }
                 break;
         case "lamp":
@@ -218,7 +217,6 @@ function Furni(type, pos, size, orientation, action){
                 this.numactions = 1;
                 this.draw = function(){
                     this.drawlamp();
-                    this.setocupied();
                }
                 break;
         }
@@ -230,6 +228,7 @@ Furni.prototype.constructor = Furni;
 
 
 Furni.prototype.setocupied = function(){
+this.bounds = this.getBounds();
 
     for(x = this.bounds.xmin; x < this.bounds.xmax; x++){
     for(y = this.bounds.ymin; y < this.bounds.ymax; y++){
@@ -242,6 +241,7 @@ Furni.prototype.setocupied = function(){
 }
 
 Furni.prototype.removeocupied = function(){
+this.bounds = this.getBounds();
 
     for(x = this.bounds.xmin; x < this.bounds.xmax; x++){
     for(y = this.bounds.ymin; y < this.bounds.ymax; y++){
@@ -255,9 +255,11 @@ Furni.prototype.removeocupied = function(){
 
 //movefurni
 Furni.prototype.movefurni = function(){
+
     this.move = 1;
     this.removeocupied();
     furnimoving = 1;
+
 }
 
 //action
@@ -367,10 +369,12 @@ var possible = true;
     }
 
     if(possible == true){
+
         this.pos.x = x;
         this.pos.y = y;
         this.move = 0;
         furnimoving = 0;
+        
         this.setocupied();
     }
 

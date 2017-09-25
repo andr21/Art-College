@@ -20,45 +20,22 @@ canvas.addEventListener('mousemove', function(e) {
 		H = Hloc - squares[x][y].h;
 		V = Vloc - squares[x][y].v + dHeight/2;
 
-			if(V <= dHeight/2){
+		if((V <= dHeight/2 && H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V) || V > dHeight/2 && H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
-			     if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
+			focus.x = x;
+			focus.y = y;
 
-				    focus.x = x;
-				    focus.y = y;
-
-				    if(furnimoving == 1){
-				    	if(squares[x][y].ocupied ==0){
-				    		objects[focusstage.focus].pos.x = x;
-				    		objects[focusstage.focus].pos.y = y;
-				    	}
-				    	//objects[focusstage.focus].placefurni(x,y);
-				    }
-
-
-				    break loop;
-			     }
-
-			}else{
-
-			  if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
-
-				    focus.x = x;
-				    focus.y = y;
-				    
-
-				    if(furnimoving == 1){
-				    	if(squares[x][y].ocupied ==0){
-				    		objects[focusstage.focus].pos.x = x;
-				    		objects[focusstage.focus].pos.y = y;
-				    	}
-				    	//objects[focusstage.focus].placefurni(x,y);
-				    }
-				    
-				    break loop;
-			  }
-
+			if(furnimoving == 1){
+				if(squares[x][y].ocupied ==0){
+				    objects[focusstage.focus].pos.x = x;
+				    objects[focusstage.focus].pos.y = y;
+				}
+				    	
 			}
+
+
+		break loop;
+		}
 
 	}
 	}
@@ -94,61 +71,30 @@ for (y = 0; y<= yCount; y++){
 	H = Hclick - squares[x][y].h;
 	V = Vclick - squares[x][y].v + dHeight/2;
 
-	if(V <= dHeight/2){
+	if((V <= dHeight/2 && H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V) || V > dHeight/2 && H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
-		if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
-			
-			if(furnimoving == 1){
-				objects[focusstage.focus].placefurni(x,y);
-			}
-			else{
-
-			    if(squares[x][y].ocupied == 0){
-						    
-					focusstage.select(0.5);
-						    
-					pathEnd= [x,y];
-					createworld();
-					
-
-				}else{
-					
-				    focusstage.select(findobjectclicked(x,y));
-					
-				}
-			
-			}
-			
-         break loop;
+		
+		if(furnimoving == 1){
+			objects[focusstage.focus].placefurni(x,y);
 		}
+		else{
 
-	}else{
-
-		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
-
-			if(furnimoving == 1){
-  objects[focusstage.focus].placefurni(x,y);
-			}
-			else{			    
-		        if(squares[x][y].ocupied == 0){
-
-		            focusstage.select(0.5);
+			if(squares[x][y].ocupied == 0){
 						    
-					pathEnd = [x,y];
-					createworld();
-					
+				focusstage.select(0.5);
+						    
+				pathEnd= [x,y];
+				createworld();
 
-				}else{
-				 
-					focusstage.select(findobjectclicked(x,y));
-				  
-				}
-		    
+			}else{
+				focusstage.select(findobjectclicked(x,y));
+					
 			}
-					
-			break loop;		
+			
 		}
-
+			
+        break loop;
+		
 	}
 
 }
@@ -196,7 +142,7 @@ for (y = 0; y<= yCount; y++){
 	H = Hclick - squares[x][y].h;
 	V = Vclick - squares[x][y].v + dHeight/2;
 
-	if(V <= dHeight/2){
+	if((V <= dHeight/2 && H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V) || V > dHeight/2 && H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
 		if(H > dWidth/2 - (dWidth/dHeight)*V && H <dWidth/2 + (dWidth/dHeight)*V){
 					
@@ -209,23 +155,6 @@ for (y = 0; y<= yCount; y++){
 				
 			}
 
-		}
-
-	}else{
-
-		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
-
-						    
-	        if(squares[x][y].ocupied == 0){
-					    //do nothing
-
-			}else{
-			 
-				objects[findobjectclicked(x,y)].nudge();
-			  
-			}
-					
-					
 		}
 
 	}
