@@ -352,7 +352,7 @@ drawstage();
 drawobjects();
 drawgrain();
 
-
+p.innerHTML = focusstage.focus;
 }
  
 

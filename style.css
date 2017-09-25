@@ -1,10 +1,10 @@
 /* css */
 
-canvas {
-
-display: block;
-
-margin: 0 auto; }
+canvas 
+{
+  display: block;
+  margin: 0 auto; 
+}
 
 
 #container
@@ -38,4 +38,14 @@ margin: 0 auto; }
   color: white;
   font-family: "Arial";
   font-size: 12px;
+}
+
+#base
+{
+  bottom: 0px;
+  position: relative;
+  height: 70px;
+  background-color: #202020;
+  width: 900px;
+  margin: 0 auto;
 }

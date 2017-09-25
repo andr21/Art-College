@@ -45,7 +45,7 @@ canvas.addEventListener('mousemove', function(e) {
 
 				    focus.x = x;
 				    focus.y = y;
-				    break loop;
+				    
 
 				    if(furnimoving == 1){
 				    	if(squares[x][y].ocupied ==0){
@@ -54,6 +54,8 @@ canvas.addEventListener('mousemove', function(e) {
 				    	}
 				    	//objects[focusstage.focus].placefurni(x,y);
 				    }
+				    
+				    break loop;
 			  }
 
 			}
@@ -107,15 +109,17 @@ for (y = 0; y<= yCount; y++){
 						    
 					pathEnd= [x,y];
 					createworld();
-					break loop;
+					
 
 				}else{
 					
 				    focusstage.select(findobjectclicked(x,y));
 					
 				}
+			
 			}
-
+			
+         break loop;
 		}
 
 	}else{
@@ -123,7 +127,7 @@ for (y = 0; y<= yCount; y++){
 		if(H > (dWidth/dHeight)*V - dWidth/2 && H < -(dWidth/dHeight)*V + 3*dWidth/2){
 
 			if(furnimoving == 1){
-
+  objects[focusstage.focus].placefurni(x,y);
 			}
 			else{			    
 		        if(squares[x][y].ocupied == 0){
@@ -132,16 +136,17 @@ for (y = 0; y<= yCount; y++){
 						    
 					pathEnd = [x,y];
 					createworld();
-					break loop;
+					
 
 				}else{
 				 
 					focusstage.select(findobjectclicked(x,y));
 				  
 				}
+		    
 			}
 					
-					
+			break loop;		
 		}
 
 	}
