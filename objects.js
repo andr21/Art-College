@@ -241,9 +241,22 @@ Furni.prototype.setocupied = function(){
 
 }
 
-//move
+Furni.prototype.removeocupied = function(){
+
+    for(x = this.bounds.xmin; x < this.bounds.xmax; x++){
+    for(y = this.bounds.ymin; y < this.bounds.ymax; y++){
+
+        squares[x][y].ocupied = 0;
+
+    }
+    }
+
+}
+
+//movefurni
 Furni.prototype.movefurni = function(){
     this.move = 1;
+    this.removeocupied();
     furnimoving = 1;
 }
 
@@ -358,6 +371,7 @@ var possible = true;
         this.pos.y = y;
         this.move = 0;
         furnimoving = 0;
+        this.setocupied();
     }
 
 }
