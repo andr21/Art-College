@@ -26,7 +26,7 @@ canvas.addEventListener('mousemove', function(e) {
 			focus.y = y;
 
 			if(furnimoving == 1){
-				if(squares[x][y].ocupied ==0){
+				if(objects[focusstage.focus].canbeplaced(x,y) == true){
 				    objects[focusstage.focus].pos.x = x;
 				    objects[focusstage.focus].pos.y = y;
 				}

@@ -67,6 +67,7 @@ message.onkeydown = function(event) {
 //music on off button
 var music = document.querySelector('#music');
 var audio = new Audio('Arcade Funk.mp3');
+audio.loop = true;
 
 music.onclick = function(){
 
@@ -84,7 +85,9 @@ music.onclick = function(){
 
 }
 
-
+//beep error
+var beep = new Audio('beep.mp3');
+beep.loop = false;
 
 //image sources
 

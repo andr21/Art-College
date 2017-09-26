@@ -295,7 +295,46 @@ Furni.prototype.rotate = function(){
         this.orientation = 0;
     }
     this.setsize();
-    this.setocupied();
+    //console.log(this.pox.x);
+    //console.log(this.pox.y);
+    if(this.canbeplaced(this.pos.x,this.pos.y) == true){
+        this.setocupied();
+    }
+    else{
+        console.log("cannot rotate :(")
+        beep.play();
+        this.orientation--;
+        if(this.orientation < 0){
+            this.orientation = this.numorientations - 1;
+        }
+        this.setsize();
+        this.setocupied();
+    }
+}
+
+Furni.prototype.canbeplaced = function(x,y){
+var outcome = true;
+    
+    loop:
+    for(i = 0; i < this.size.x; i++){
+    for(j = 0; j < this.size.y; j++){
+        
+        try {
+            if(squares[x + i][y + j].ocupied != 0){
+                outcome = false;
+                break loop;
+            }
+        }
+        catch(err) {
+            outcome = false;
+            break loop;
+        }
+
+    }
+    }
+
+    return outcome;
+
 }
 
 Furni.prototype.draweasel = function(){
@@ -376,20 +415,9 @@ Furni.prototype.drawlamp = function(){
 
 //if no obstruction, place furni.
 Furni.prototype.placefurni = function(x, y){
-var possible = true;
 
-    for(i = 0; i <= this.size.x - 1; i++){
-    for(j = 0; j <= this.size.y - 1; j++){
 
-        if(squares[x+i][y+j].ocupied == 1){
-
-            possible = false;
-        }
-
-    }
-    }
-
-    if(possible == true){
+    if(this.canbeplaced(x,y) == true){
 
         this.pos.x = x;
         this.pos.y = y;
@@ -457,12 +485,12 @@ var objects = [];
 function initialiseObjects(){
 
     objects[0] = new Man({x:9,y:4,z:0}, 2);
-    objects[1] = new Furni("easel",{x:2,y:5,z:0}, 0, 0);
-    objects[2] = new Furni("sofa",{x:0,y:5,z:0}, 0, 0);
-    objects[3] = new Furni("lamp",{x:4,y:3,z:0}, 0, 0);
-    objects[4] = new Furni("easel",{x:0,y:0,z:0}, 0, 0);
-    objects[5] = new Furni("easel",{x:1,y:0,z:0}, 0, 0);
-    objects[6] = new Furni("lamp",{x:6,y:2,z:0}, 0, 0);
+    objects[1] = new Furni("easel",{x:0,y:5,z:0}, 0, 0);
+    objects[2] = new Furni("sofa",{x:5,y:5,z:0}, 0, 0);
+    objects[3] = new Furni("lamp",{x:4,y:5,z:0}, 0, 0);
+    objects[4] = new Furni("easel",{x:2,y:5,z:0}, 0, 0);
+    objects[5] = new Furni("easel",{x:9,y:1,z:0}, 1, 0);
+    objects[6] = new Furni("lamp",{x:7,y:5,z:0}, 0, 1);
 
 }
 
