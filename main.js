@@ -54,6 +54,37 @@ wallHeight = wallHeight * s;
 }
 
 
+var message = document.getElementById('message')
+
+message.onkeydown = function(event) {
+    if (event.keyCode == 13) {
+        console.log(message.value);
+        message.value = "";
+    }
+}
+
+
+//music on off button
+var music = document.querySelector('#music');
+var audio = new Audio('Arcade Funk.mp3');
+
+music.onclick = function(){
+
+ if(music.src.includes("soundoff") == true){
+
+  music.src = "img/soundon.png";
+  audio.play();
+
+ }else{
+
+  music.src = "img/soundoff.png";
+  audio.pause();
+
+}
+
+}
+
+
 
 //image sources
 

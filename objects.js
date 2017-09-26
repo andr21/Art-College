@@ -41,8 +41,9 @@ Block.prototype.isClicked = function(x,y){
 
 //man
 
-function Man(pos, size, orientation){
-    Block.call(this, pos, size);
+function Man(pos, orientation){
+    this.size = {x:1,y:1,z:2};
+    Block.call(this, pos, this.size);
     this.orientation = orientation;
     this.numorientations = 4;
     this.bounds = this.getBounds();
@@ -184,15 +185,12 @@ Man.prototype.removeocupied = function(){
 //Furni
 
 
-function Furni(type, pos, size, orientation, action){
-    Block.call(this, pos, size);
+function Furni(type, pos, orientation, action){
     this.type = type;
     this.orientation = orientation;
     this.action = action;
-    this.bounds = this.getBounds();
     this.select = 0;
     this.move = 0;
-    this.setocupied();
     
         switch(this.type){
         case "easel":
@@ -202,6 +200,7 @@ function Furni(type, pos, size, orientation, action){
                 this.draw = function(){
                     this.draweasel();
                 }
+                this.size = {x:1,y:1,z:2.5};
                 break;
         case "sofa":
                 this.image = images.sofa;
@@ -210,6 +209,7 @@ function Furni(type, pos, size, orientation, action){
                 this.draw = function(){
                     this.drawsofa();
                 }
+                this.size = {x:2,y:1,z:2};
                 break;
         case "lamp":
                 this.image = images.lamp;
@@ -217,9 +217,13 @@ function Furni(type, pos, size, orientation, action){
                 this.numactions = 1;
                 this.draw = function(){
                     this.drawlamp();
-               }
+                }
+                this.size = {x:1,y:1,z:3};
                 break;
         }
+        Block.call(this, pos, this.size);
+        this.bounds = this.getBounds();
+        this.setocupied();
     
 }
 
@@ -435,13 +439,13 @@ function FocusStage(){
 var objects = [];
 function initialiseObjects(){
 
-    objects[0] = new Man({x:9,y:4,z:0}, {x:1,y:1,z:3},2);
-    objects[1] = new Furni("easel",{x:2,y:5,z:0}, {x:1,y:1,z:2}, 0, 0);
-    objects[2] = new Furni("sofa",{x:0,y:5,z:0}, {x:2,y:1,z:2}, 0, 0);
-    objects[3] = new Furni("lamp",{x:4,y:3,z:0}, {x:1,y:1,z:3}, 0, 0);
-    objects[4] = new Furni("easel",{x:0,y:0,z:0}, {x:1,y:1,z:2}, 0, 0);
-    objects[5] = new Furni("easel",{x:1,y:0,z:0}, {x:1,y:1,z:2.5}, 0, 0);
-    objects[6] = new Furni("lamp",{x:6,y:2,z:0}, {x:1,y:1,z:3}, 0, 0);
+    objects[0] = new Man({x:9,y:4,z:0}, 2);
+    objects[1] = new Furni("easel",{x:2,y:5,z:0}, 0, 0);
+    objects[2] = new Furni("sofa",{x:0,y:5,z:0}, 0, 0);
+    objects[3] = new Furni("lamp",{x:4,y:3,z:0}, 0, 0);
+    objects[4] = new Furni("easel",{x:0,y:0,z:0}, 0, 0);
+    objects[5] = new Furni("easel",{x:1,y:0,z:0}, 0, 0);
+    objects[6] = new Furni("lamp",{x:6,y:2,z:0}, 0, 0);
 
 }
 
