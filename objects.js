@@ -200,7 +200,9 @@ function Furni(type, pos, orientation, action){
                 this.draw = function(){
                     this.draweasel();
                 }
-                this.size = {x:1,y:1,z:2.5};
+                this.setsize = function(){
+                  this.size = {x:1,y:1,z:2.5};
+                }
                 break;
         case "sofa":
                 this.image = images.sofa;
@@ -209,7 +211,16 @@ function Furni(type, pos, orientation, action){
                 this.draw = function(){
                     this.drawsofa();
                 }
-                this.size = {x:2,y:1,z:2};
+                this.setsize = function(){
+                  switch(this.orientation){
+                  case 0:
+                    this.size = {x:2,y:1,z:2};
+                    break;
+                  case 1:
+                    this.size = {x:1,y:2,z:2};
+                    break;
+                  }
+                }
                 break;
         case "lamp":
                 this.image = images.lamp;
@@ -218,9 +229,12 @@ function Furni(type, pos, orientation, action){
                 this.draw = function(){
                     this.drawlamp();
                 }
-                this.size = {x:1,y:1,z:3};
+                this.setsize = function(){
+                  this.size = {x:1,y:1,z:3};
+                } 
                 break;
         }
+        this.setsize();
         Block.call(this, pos, this.size);
         this.bounds = this.getBounds();
         this.setocupied();
@@ -275,10 +289,13 @@ Furni.prototype.nudge = function(){
 }
 //rotate
 Furni.prototype.rotate = function(){
+    this.removeocupied();
     this.orientation++;
     if(this.orientation >= this.numorientations){
         this.orientation = 0;
     }
+    this.setsize();
+    this.setocupied();
 }
 
 Furni.prototype.draweasel = function(){
