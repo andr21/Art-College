@@ -500,3 +500,56 @@ function drawobjects(){
 
 
 
+function Message(name, note, x, y){
+this.name = name;
+this.note = note;
+this.bgimage = images.chatbg;
+this.nameimage = images.chatname;
+
+ctx.font = "12px Arial";
+this.namelength = ctx.measureText(this.name).width + 15;
+this.notelength = this.namelength + ctx.measureText(this.note).width + 15;
+
+this.h = squares[x][y].h - (this.notelength)/2 + dWidth/2;
+this.v = squares[x][y].v - 130;
+
+this.accv = 5;
+this.velv = -Math.sqrt(2 * this.accv * (this.v - 80));
+
+this.update = function(){
+ this.v += this.velv;
+ 
+ if(this.v < 80){
+  //constant speed at top
+  this.velv = -1.2;
+ 
+ }else{
+  this.velv += this.accv;
+ }
+ 
+}
+
+this.draw = function(){
+  this.update();
+ctx.drawImage(this.bgimage,this.h,this.v, this.notelength, this.bgimage.height);
+
+ctx.drawImage(this.nameimage,this.h,this.v, this.namelength, this.nameimage.height);
+
+ctx.font = "12px Arial";
+ctx.fillText(this.name + ':',this.h + 8,this.v + 15);
+ctx.fillText(this.note,this.h + 8 + this.namelength, this.v + 15);
+
+}
+
+}
+
+var messages = [];
+function initialiseMessages(){
+messages[0] = new Message("jumanji", "i dont wana go to school!!!", 0, 0);
+
+}
+
+
+
+
+

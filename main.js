@@ -366,6 +366,7 @@ function initalise(){
 	initialiseWalls();
 	initialiseFocus();
 	initialiseObjects();
+	initialiseMessages();
 
 	setInterval(draw,100);
 }
@@ -387,15 +388,7 @@ drawstage();
 drawobjects();
 drawgrain();
 
-
-
-
-ctx.drawImage(images.chatbg,100,100, images.chatbg.width/3, images.chatbg.height);
-ctx.drawImage(images.chatname,100,100, images.chatname.width/4, images.chatname.height);
-ctx.font = "12px Arial";
-ctx.fillText("Andy",110,115);
-ctx.fillText("Hello world!",110 + images.chatname.width/4,115);
-
+messages[0].draw();
 p.innerHTML = focusstage.focus;
 }
  
