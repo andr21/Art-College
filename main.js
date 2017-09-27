@@ -382,7 +382,8 @@ drawobjects();
 drawgrain();
 drawmessages();
 
-p.innerHTML = focusstage.focus;
+removemessages();
+p.innerHTML = messages.length;
 }
  
 

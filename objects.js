@@ -545,6 +545,8 @@ ctx.fillText(this.note,this.h + 8 + this.namelength, this.v + 15);
 
 }
 
+//messages
+
 var messages = [];
 function drawmessages(){
 for(m = 0; m < messages.length; m++){
@@ -559,6 +561,18 @@ function newmessage(name, note, x, y){
 }
 
 
+function removemessages(){
+  for(i=0; i< messages.length; i++){
 
+    if(messages[i].v < -20){
+      messages.splice(i,1);
+      i=i-1;
+    }
+    else{
+       break;
+    }
+
+  }
+}
 
 
