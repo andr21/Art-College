@@ -50,6 +50,7 @@ function Man(pos, orientation){
     this.XhalfStep = 0;
     this.YhalfStep = 0;
     this.select = 0;
+    this.name = "Andy";
     
     this.updateimage = function(){
         switch(this.orientation){
@@ -187,6 +188,7 @@ Man.prototype.removeocupied = function(){
 
 function Furni(type, pos, orientation, action){
     this.type = type;
+    this.name = type;
     this.orientation = orientation;
     this.action = action;
     this.select = 0;
@@ -462,7 +464,7 @@ function FocusStage(){
  
     this.buttons = function(){
         if(this.on == 1){
-            itemname.innerHTML = objects[this.focus].type;
+            itemname.innerHTML = objects[this.focus].name;
             movebutton.style.display = 'block';
             rotatebutton.style.display = 'block';
 
@@ -544,8 +546,15 @@ ctx.fillText(this.note,this.h + 8 + this.namelength, this.v + 15);
 }
 
 var messages = [];
-function initialiseMessages(){
-messages[0] = new Message("jumanji", "i dont wana go to school!!!", 0, 0);
+function drawmessages(){
+for(m = 0; m < messages.length; m++){
+  messages[m].draw();
+}
+}
+
+function newmessage(name, note, x, y){
+
+ messages[messages.length] = new Message(name, note, Math.floor(x), Math.floor(y));
 
 }
 

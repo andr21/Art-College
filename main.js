@@ -53,15 +53,9 @@ wallHeight = wallHeight * s;
 
 }
 
-
+//message box
 var message = document.getElementById('message')
 
-message.onkeydown = function(event) {
-    if (event.keyCode == 13) {
-        console.log(message.value);
-        message.value = "";
-    }
-}
 
 
 //music on off button
@@ -366,7 +360,6 @@ function initalise(){
 	initialiseWalls();
 	initialiseFocus();
 	initialiseObjects();
-	initialiseMessages();
 
 	setInterval(draw,100);
 }
@@ -387,8 +380,8 @@ drawdoor();
 drawstage();
 drawobjects();
 drawgrain();
+drawmessages();
 
-messages[0].draw();
 p.innerHTML = focusstage.focus;
 }
  

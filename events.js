@@ -183,4 +183,12 @@ function movebuttonclick(){
 
 }
 
+message.onkeydown = function(event) {
+    if (event.keyCode == 13) {
+        
+        newmessage(objects[0].name, message.value, objects[0].pos.x, objects[0].pos.y);
+        message.value = "";
+    }
+}
+
 
