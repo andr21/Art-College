@@ -110,8 +110,9 @@ car: "img/car.png",
 boy: "img/People/Little_Boy_Pink.png",
 boyL: "img/People/Little_Boy_Pink_Left.png",
 boyBL: "img/People/Little_Boy_Pink_bleft.png",
-boyBR: "img/People/Little_Boy_Pink_bright.png"
-
+boyBR: "img/People/Little_Boy_Pink_bright.png",
+chatbg: "img/Chat/chat-bg.png",
+chatname: "img/Chat/chat-name.png"
 }
 
 
@@ -386,11 +387,20 @@ drawstage();
 drawobjects();
 drawgrain();
 
+
+
+
+ctx.drawImage(images.chatbg,100,100, images.chatbg.width/3, images.chatbg.height);
+ctx.drawImage(images.chatname,100,100, images.chatname.width/4, images.chatname.height);
+ctx.font = "12px Arial";
+ctx.fillText("Andy",110,115);
+ctx.fillText("Hello world!",110 + images.chatname.width/4,115);
+
 p.innerHTML = focusstage.focus;
 }
  
 
- 
+
  
 
  
